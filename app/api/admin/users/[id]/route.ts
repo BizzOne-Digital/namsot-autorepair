@@ -59,7 +59,7 @@ export async function PATCH(request: Request, context: RouteContext) {
     }
 
     const updated = await User.findByIdAndUpdate(id, update, {
-      new: true,
+      returnDocument: "after",
       runValidators: true,
     })
       .select("-passwordHash")

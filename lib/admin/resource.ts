@@ -172,7 +172,7 @@ export function createAdminItemRoute<TDoc>(
 
       const updated = await config.model
         .findByIdAndUpdate(id, payload, {
-          new: true,
+          returnDocument: "after",
           runValidators: true,
         })
         .lean();

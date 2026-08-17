@@ -24,7 +24,7 @@ export async function PUT(request: Request) {
     const updated = await SiteSettings.findOneAndUpdate(
       { key: SITE_SETTINGS_KEY },
       { $set: payload, $setOnInsert: { key: SITE_SETTINGS_KEY } },
-      { new: true, upsert: true, runValidators: true },
+      { returnDocument: "after", upsert: true, runValidators: true },
     ).lean();
 
     return apiSuccess(toPlainObject(updated));
