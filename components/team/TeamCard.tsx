@@ -1,10 +1,10 @@
 import Image from "next/image";
-import type { TeamMember } from "@/data/team";
+import type { ContentTeamMember } from "@/lib/content/types";
 import { Card } from "@/components/ui/Card";
 import { cn } from "@/utils/cn";
 
 interface TeamCardProps {
-  member: TeamMember;
+  member: ContentTeamMember;
   className?: string;
 }
 

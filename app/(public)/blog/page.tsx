@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Container } from "@/components/ui/Container";
-import { getAllBlogPosts } from "@/data/blog";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { getBlogPosts } from "@/lib/content";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { FadeIn } from "@/components/motion/FadeIn";
 
@@ -14,8 +15,8 @@ export const metadata: Metadata = {
 const blogHeroImage =
   "https://images.unsplash.com/photo-1676018366904-c083ed678e60?auto=format&fit=crop&w=2400&q=80";
 
-export default function BlogPage() {
-  const posts = getAllBlogPosts();
+export default async function BlogPage() {
+  const posts = await getBlogPosts();
 
   return (
     <>
@@ -29,13 +30,20 @@ export default function BlogPage() {
 
       <section className="section-spacing">
         <Container>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
-            {posts.map((post, index) => (
-              <FadeIn key={post.slug} delay={index * 0.05}>
-                <BlogCard post={post} />
-              </FadeIn>
-            ))}
-          </div>
+          {posts.length === 0 ? (
+            <EmptyState
+              title="No articles published yet"
+              description="We are working on our first guides. Check back soon for maintenance tips and shop news."
+            />
+          ) : (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
+              {posts.map((post, index) => (
+                <FadeIn key={post._id} delay={index * 0.05}>
+                  <BlogCard post={post} />
+                </FadeIn>
+              ))}
+            </div>
+          )}
         </Container>
       </section>
     </>

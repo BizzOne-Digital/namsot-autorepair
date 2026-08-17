@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { ContactForm } from "@/components/forms/ContactForm";
-import { businessInfo, openingHours } from "@/data/site";
+import { getSiteSettings, mailtoHref, telHref } from "@/lib/content";
 import { FadeIn } from "@/components/motion/FadeIn";
 
 export const metadata: Metadata = {
@@ -15,7 +15,11 @@ export const metadata: Metadata = {
 const contactHeroImage =
   "https://images.unsplash.com/photo-1565580743984-49bf8ef4daa6?auto=format&fit=crop&w=2400&q=80";
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const settings = await getSiteSettings();
+  const phoneHref = telHref(settings.contactPhone);
+  const emailHref = mailtoHref(settings.contactEmail);
+
   return (
     <>
       <PageHeader
@@ -36,16 +40,16 @@ export default function ContactPage() {
                     Phone
                   </h3>
                   <a
-                    href={businessInfo.phoneHref}
+                    href={phoneHref}
                     className="mt-3 block text-2xl font-bold text-foreground hover:text-accent transition-colors"
                   >
-                    {businessInfo.phone}
+                    {settings.contactPhone}
                   </a>
                   <p className="mt-2 text-sm text-muted">
                     Call for appointments, estimates, or urgent questions.
                   </p>
                   <a
-                    href={businessInfo.phoneHref}
+                    href={phoneHref}
                     className="mt-4 inline-flex h-10 items-center justify-center rounded-md bg-accent px-5 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
                   >
                     Call Now
@@ -59,16 +63,16 @@ export default function ContactPage() {
                     Email
                   </h3>
                   <a
-                    href={businessInfo.emailHref}
+                    href={emailHref}
                     className="mt-3 block text-base font-semibold text-foreground hover:text-accent transition-colors break-all"
                   >
-                    {businessInfo.email}
+                    {settings.contactEmail}
                   </a>
                   <p className="mt-2 text-sm text-muted">
                     We respond within one business day.
                   </p>
                   <a
-                    href={businessInfo.emailHref}
+                    href={emailHref}
                     className="mt-4 inline-flex h-10 items-center justify-center rounded-md border border-border px-5 text-sm font-semibold text-foreground transition-colors hover:bg-surface-muted"
                   >
                     Send Email
@@ -82,7 +86,7 @@ export default function ContactPage() {
                     Hours
                   </h3>
                   <ul className="mt-3 space-y-2">
-                    {openingHours.map((item) => (
+                    {settings.openingHours.map((item) => (
                       <li
                         key={item.days}
                         className="flex justify-between text-sm"
@@ -101,13 +105,13 @@ export default function ContactPage() {
                     Location
                   </h3>
                   <p className="mt-3 font-medium text-foreground">
-                    {businessInfo.address}
+                    {settings.address}
                   </p>
                   <p className="mt-1 text-sm text-muted">
-                    {businessInfo.addressLine}
+                    {settings.addressLine}
                   </p>
                   <div className="mt-4 flex h-40 items-center justify-center rounded-md border border-dashed border-border bg-surface-muted text-sm text-muted">
-                    {businessInfo.mapPlaceholder}
+                    Map integration coming soon
                   </div>
                 </Card>
               </FadeIn>

@@ -4,7 +4,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { BookingForm } from "@/components/forms/BookingForm";
-import { businessInfo } from "@/data/site";
+import { getServices, getSiteSettings, telHref } from "@/lib/content";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Loading } from "@/components/ui/Loading";
 
@@ -14,18 +14,20 @@ export const metadata: Metadata = {
     "Schedule your automotive service appointment online with Namsot Auto Repairs.",
 };
 
-function BookingFormWrapper() {
-  return (
-    <Suspense fallback={<Loading className="py-12" />}>
-      <BookingForm />
-    </Suspense>
-  );
-}
-
 const bookingHeroImage =
   "https://images.unsplash.com/photo-1652852592938-15bf8c50ab6d?auto=format&fit=crop&w=2400&q=80";
 
-export default function BookingPage() {
+export default async function BookingPage() {
+  const [services, settings] = await Promise.all([
+    getServices(),
+    getSiteSettings(),
+  ]);
+
+  const serviceOptions = services.map((service) => ({
+    slug: service.slug,
+    name: service.name,
+  }));
+
   return (
     <>
       <PageHeader
@@ -41,7 +43,9 @@ export default function BookingPage() {
           <div className="grid gap-10 lg:grid-cols-3">
             <FadeIn className="lg:col-span-2">
               <Card className="p-6 sm:p-8">
-                <BookingFormWrapper />
+                <Suspense fallback={<Loading className="py-12" />}>
+                  <BookingForm services={serviceOptions} />
+                </Suspense>
               </Card>
             </FadeIn>
 
@@ -56,10 +60,10 @@ export default function BookingPage() {
                     service.
                   </p>
                   <a
-                    href={businessInfo.phoneHref}
+                    href={telHref(settings.contactPhone)}
                     className="mt-4 block text-lg font-semibold text-accent hover:text-accent-hover transition-colors"
                   >
-                    {businessInfo.phone}
+                    {settings.contactPhone}
                   </a>
                 </Card>
 

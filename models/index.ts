@@ -10,5 +10,14 @@ export { GalleryItem, type IGalleryItem } from "./GalleryItem";
 export { PricingPlan, type IPricingPlan } from "./PricingPlan";
 export { Booking, type IBooking } from "./Booking";
 export { Order, type IOrder } from "./Order";
-export { SiteSettings, type ISiteSettings } from "./SiteSettings";
+export {
+  SiteSettings,
+  SITE_SETTINGS_KEY,
+  type ISiteSettings,
+} from "./SiteSettings";
 export { StoredUpload, type IStoredUpload } from "./StoredUpload";
+export {
+  ContactMessage,
+  CONTACT_MESSAGE_STATUSES,
+  type IContactMessage,
+} from "./ContactMessage";

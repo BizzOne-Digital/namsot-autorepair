@@ -1,3 +1,10 @@
-/**
- * Admin dashboard components — implemented in future phases.
- */
+export { AdminModal } from "./AdminModal";
+export { AdminShell } from "./AdminShell";
+export { ConfirmDialog } from "./ConfirmDialog";
+export { LoginForm } from "./LoginForm";
+export { ResourceFields } from "./ResourceFields";
+export { ResourceManager } from "./ResourceManager";
+export { SeedContentButton } from "./SeedContentButton";
+export { SettingsForm } from "./SettingsForm";
+export { StatCard } from "./StatCard";
+export { formatDate, formatDateTime, formatMoney, renderCell } from "./cells";

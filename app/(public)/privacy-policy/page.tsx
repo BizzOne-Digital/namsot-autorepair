@@ -3,14 +3,16 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { siteConfig } from "@/lib/metadata";
-import { businessInfo } from "@/data/site";
+import { getSiteSettings, mailtoHref, telHref } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: `Privacy policy for ${siteConfig.name}.`,
 };
 
-export default function PrivacyPolicyPage() {
+export default async function PrivacyPolicyPage() {
+  const settings = await getSiteSettings();
+
   return (
     <>
       <PageHeader title="Privacy Policy" />
@@ -68,17 +70,17 @@ export default function PrivacyPolicyPage() {
                 <p className="mt-2">
                   For privacy-related questions, contact us at{" "}
                   <a
-                    href={businessInfo.emailHref}
+                    href={mailtoHref(settings.contactEmail)}
                     className="text-accent hover:text-accent-hover"
                   >
-                    {businessInfo.email}
-                  </a>{ " "}
+                    {settings.contactEmail}
+                  </a>{" "}
                   or call{" "}
                   <a
-                    href={businessInfo.phoneHref}
+                    href={telHref(settings.contactPhone)}
                     className="text-accent hover:text-accent-hover"
                   >
-                    {businessInfo.phone}
+                    {settings.contactPhone}
                   </a>
                   .
                 </p>

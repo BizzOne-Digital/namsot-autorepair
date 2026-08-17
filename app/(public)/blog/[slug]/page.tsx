@@ -4,22 +4,18 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs, PageHeader } from "@/components/layout/PageHeader";
 import { Container } from "@/components/ui/Container";
-import { getAllBlogPosts, getBlogPostBySlug } from "@/data/blog";
+import { getBlogPostBySlug } from "@/lib/content";
 import { FadeIn } from "@/components/motion/FadeIn";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateStaticParams() {
-  return getAllBlogPosts().map((post) => ({ slug: post.slug }));
-}
-
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
+  const post = await getBlogPostBySlug(slug);
 
   if (!post) {
     return { title: "Article Not Found" };
@@ -33,17 +29,19 @@ export async function generateMetadata({
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
+  const post = await getBlogPostBySlug(slug);
 
   if (!post) {
     notFound();
   }
 
-  const formattedDate = new Date(post.publishedAt).toLocaleDateString("en-CA", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const formattedDate = post.publishedAt
+    ? new Date(post.publishedAt).toLocaleDateString("en-CA", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : null;
 
   return (
     <>
@@ -62,10 +60,20 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <FadeIn>
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted">
               <span className="font-medium text-accent">{post.category}</span>
-              <span>·</span>
-              <time dateTime={post.publishedAt}>{formattedDate}</time>
-              <span>·</span>
-              <span>{post.readTime}</span>
+              {formattedDate ? (
+                <>
+                  <span>·</span>
+                  <time dateTime={post.publishedAt ?? undefined}>
+                    {formattedDate}
+                  </time>
+                </>
+              ) : null}
+              {post.readTime ? (
+                <>
+                  <span>·</span>
+                  <span>{post.readTime}</span>
+                </>
+              ) : null}
               <span>·</span>
               <span>By {post.author}</span>
             </div>

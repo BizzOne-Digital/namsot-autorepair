@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs, PageHeader } from "@/components/layout/PageHeader";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
-import { getAllServices, getServiceBySlug } from "@/data/services";
+import { getServiceBySlug } from "@/lib/content";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { BookingCTASection } from "@/components/sections/BookingCTASection";
 
@@ -13,15 +13,11 @@ interface ServicePageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateStaticParams() {
-  return getAllServices().map((service) => ({ slug: service.slug }));
-}
-
 export async function generateMetadata({
   params,
 }: ServicePageProps): Promise<Metadata> {
   const { slug } = await params;
-  const service = getServiceBySlug(slug);
+  const service = await getServiceBySlug(slug);
 
   if (!service) {
     return { title: "Service Not Found" };
@@ -35,7 +31,7 @@ export async function generateMetadata({
 
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const { slug } = await params;
-  const service = getServiceBySlug(slug);
+  const service = await getServiceBySlug(slug);
 
   if (!service) {
     notFound();

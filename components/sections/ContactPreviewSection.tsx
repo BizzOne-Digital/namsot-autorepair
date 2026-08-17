@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { businessInfo, openingHours } from "@/data/site";
+import { getSiteSettings, mailtoHref, telHref } from "@/lib/content";
 import { Card } from "@/components/ui/Card";
 import { FadeIn } from "@/components/motion/FadeIn";
 
-export function ContactPreviewSection() {
+export async function ContactPreviewSection() {
+  const settings = await getSiteSettings();
+
   return (
     <section className="section-spacing bg-surface">
       <Container>
@@ -23,10 +25,10 @@ export function ContactPreviewSection() {
                 Phone
               </h3>
               <a
-                href={businessInfo.phoneHref}
+                href={telHref(settings.contactPhone)}
                 className="mt-3 block text-xl font-semibold text-foreground hover:text-accent transition-colors"
               >
-                {businessInfo.phone}
+                {settings.contactPhone}
               </a>
               <p className="mt-2 text-sm text-muted">
                 Call us for appointments, estimates, or questions.
@@ -40,10 +42,10 @@ export function ContactPreviewSection() {
                 Email
               </h3>
               <a
-                href={businessInfo.emailHref}
+                href={mailtoHref(settings.contactEmail)}
                 className="mt-3 block text-base font-semibold text-foreground hover:text-accent transition-colors break-all"
               >
-                {businessInfo.email}
+                {settings.contactEmail}
               </a>
               <p className="mt-2 text-sm text-muted">
                 We respond to emails within one business day.
@@ -57,7 +59,7 @@ export function ContactPreviewSection() {
                 Hours
               </h3>
               <ul className="mt-3 space-y-1">
-                {openingHours.map((item) => (
+                {settings.openingHours.map((item) => (
                   <li
                     key={item.days}
                     className="flex justify-between text-sm text-foreground"
@@ -74,12 +76,8 @@ export function ContactPreviewSection() {
         <FadeIn delay={0.2}>
           <div className="mt-8 flex flex-col items-center justify-between gap-4 rounded-lg border border-dashed border-border bg-surface-muted p-8 text-center sm:flex-row sm:text-left">
             <div>
-              <p className="font-medium text-foreground">
-                {businessInfo.address}
-              </p>
-              <p className="mt-1 text-sm text-muted">
-                {businessInfo.addressLine} · {businessInfo.mapPlaceholder}
-              </p>
+              <p className="font-medium text-foreground">{settings.address}</p>
+              <p className="mt-1 text-sm text-muted">{settings.addressLine}</p>
             </div>
             <Link
               href="/contact"

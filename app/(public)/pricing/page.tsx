@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Container } from "@/components/ui/Container";
-import { getAllPricingPlans } from "@/data/pricing";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { getPricingPlans } from "@/lib/content";
 import { PricingCard } from "@/components/pricing/PricingCard";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { BookingCTASection } from "@/components/sections/BookingCTASection";
@@ -16,8 +17,8 @@ export const metadata: Metadata = {
 const pricingHeroImage =
   "https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?auto=format&fit=crop&w=2400&q=80";
 
-export default function PricingPage() {
-  const plans = getAllPricingPlans();
+export default async function PricingPage() {
+  const plans = await getPricingPlans();
 
   return (
     <>
@@ -39,13 +40,20 @@ export default function PricingPage() {
             </p>
           </FadeIn>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {plans.map((plan, index) => (
-              <FadeIn key={plan.id} delay={index * 0.05}>
-                <PricingCard plan={plan} />
-              </FadeIn>
-            ))}
-          </div>
+          {plans.length === 0 ? (
+            <EmptyState
+              title="Pricing is being updated"
+              description="Contact the shop for a current quote while we refresh our published rates."
+            />
+          ) : (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {plans.map((plan, index) => (
+                <FadeIn key={plan._id} delay={index * 0.05}>
+                  <PricingCard plan={plan} />
+                </FadeIn>
+              ))}
+            </div>
+          )}
 
           <FadeIn delay={0.2}>
             <div className="mt-12 text-center">

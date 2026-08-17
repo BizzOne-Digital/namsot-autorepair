@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Container } from "@/components/ui/Container";
-import { getAllFAQItems } from "@/data/faq";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { getFaqs } from "@/lib/content";
 import { FAQAccordion } from "@/components/faq/FAQAccordion";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { BookingCTASection } from "@/components/sections/BookingCTASection";
@@ -15,8 +16,8 @@ export const metadata: Metadata = {
 const faqHeroImage =
   "https://images.unsplash.com/photo-1730461748617-1ad7e6e56db2?auto=format&fit=crop&w=2400&q=80";
 
-export default function FAQPage() {
-  const items = getAllFAQItems();
+export default async function FAQPage() {
+  const items = await getFaqs();
 
   return (
     <>
@@ -30,9 +31,16 @@ export default function FAQPage() {
 
       <section className="section-spacing">
         <Container size="md">
-          <FadeIn>
-            <FAQAccordion items={items} />
-          </FadeIn>
+          {items.length === 0 ? (
+            <EmptyState
+              title="No questions published yet"
+              description="Have a question about your vehicle? Get in touch and we will answer it directly."
+            />
+          ) : (
+            <FadeIn>
+              <FAQAccordion items={items} />
+            </FadeIn>
+          )}
         </Container>
       </section>
 

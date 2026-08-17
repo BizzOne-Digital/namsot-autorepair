@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Container } from "@/components/ui/Container";
-import { getAllTestimonials } from "@/data/testimonials";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { getTestimonials } from "@/lib/content";
 import { TestimonialCard } from "@/components/testimonials/TestimonialCard";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { BookingCTASection } from "@/components/sections/BookingCTASection";
@@ -15,8 +16,8 @@ export const metadata: Metadata = {
 const testimonialsHeroImage =
   "https://images.unsplash.com/photo-1727893327548-031c0f831cdb?auto=format&fit=crop&w=2400&q=80";
 
-export default function TestimonialsPage() {
-  const testimonials = getAllTestimonials();
+export default async function TestimonialsPage() {
+  const testimonials = await getTestimonials();
 
   return (
     <>
@@ -30,13 +31,20 @@ export default function TestimonialsPage() {
 
       <section className="section-spacing">
         <Container>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {testimonials.map((testimonial, index) => (
-              <FadeIn key={testimonial.id} delay={index * 0.03}>
-                <TestimonialCard testimonial={testimonial} />
-              </FadeIn>
-            ))}
-          </div>
+          {testimonials.length === 0 ? (
+            <EmptyState
+              title="No reviews published yet"
+              description="Been in for a service? We would love to hear how it went — get in touch and tell us."
+            />
+          ) : (
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {testimonials.map((testimonial, index) => (
+                <FadeIn key={testimonial._id} delay={index * 0.03}>
+                  <TestimonialCard testimonial={testimonial} />
+                </FadeIn>
+              ))}
+            </div>
+          )}
         </Container>
       </section>
 

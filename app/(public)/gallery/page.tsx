@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Container } from "@/components/ui/Container";
-import { getAllGalleryItems } from "@/data/gallery";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { getGalleryItems } from "@/lib/content";
 import { GalleryGrid } from "@/components/gallery/GalleryGrid";
 import { FadeIn } from "@/components/motion/FadeIn";
 
@@ -14,8 +15,8 @@ export const metadata: Metadata = {
 const galleryHeroImage =
   "https://images.unsplash.com/photo-1669437921238-76df6d82668a?auto=format&fit=crop&w=2400&q=80";
 
-export default function GalleryPage() {
-  const items = getAllGalleryItems();
+export default async function GalleryPage() {
+  const items = await getGalleryItems();
 
   return (
     <>
@@ -29,9 +30,16 @@ export default function GalleryPage() {
 
       <section className="section-spacing">
         <Container>
-          <FadeIn>
-            <GalleryGrid items={items} />
-          </FadeIn>
+          {items.length === 0 ? (
+            <EmptyState
+              title="No photos published yet"
+              description="We are adding shots of the shop and our recent work. Check back shortly."
+            />
+          ) : (
+            <FadeIn>
+              <GalleryGrid items={items} />
+            </FadeIn>
+          )}
         </Container>
       </section>
     </>

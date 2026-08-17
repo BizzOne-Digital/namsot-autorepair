@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
-import { getPlaceholderProducts } from "@/data/products";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { ProductCard } from "@/components/shop/ProductCard";
+import { getProducts } from "@/lib/content";
 import { FadeIn } from "@/components/motion/FadeIn";
 
 export const metadata: Metadata = {
@@ -17,8 +18,8 @@ export const metadata: Metadata = {
 const shopHeroImage =
   "https://images.unsplash.com/photo-1590227763209-821c686b932f?auto=format&fit=crop&w=2400&q=80";
 
-export default function ShopPage() {
-  const products = getPlaceholderProducts();
+export default async function ShopPage() {
+  const products = await getProducts();
 
   return (
     <>
@@ -36,68 +37,49 @@ export default function ShopPage() {
             <Card className="mb-10 border-accent/20 bg-accent/5">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <Badge variant="accent" className="mb-2">Coming Soon</Badge>
+                  <Badge variant="accent" className="mb-2">
+                    Coming Soon
+                  </Badge>
                   <h2 className="font-display text-lg font-semibold text-foreground">
-                    E-Commerce Launching Soon
+                    Online checkout launching soon
                   </h2>
                   <p className="mt-1 text-sm text-muted">
-                    Browse our product catalog below. Online ordering, cart, and
-                    Stripe payments will be available in a future phase.
+                    Browse the catalogue below and get in touch to reserve any
+                    part. Cart and card payments arrive in a future update.
                   </p>
                 </div>
                 <Link
                   href="/contact"
                   className="inline-flex h-11 shrink-0 items-center justify-center rounded-md border border-border bg-surface px-6 text-sm font-medium text-foreground transition-colors hover:bg-surface-muted"
                 >
-                  Request a Product
+                  Request a product
                 </Link>
               </div>
             </Card>
           </FadeIn>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {products.map((product, index) => (
-              <FadeIn key={product.id} delay={index * 0.05}>
-                <Card padding="none" className="overflow-hidden">
-                  <div className="relative aspect-square bg-charcoal">
-                    <Image
-                      src={product.imageUrl}
-                      alt={product.imageAlt}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                    <div className="absolute top-3 left-3">
-                      <Badge variant="outline" className="bg-surface/90 text-xs">
-                        Preview
-                      </Badge>
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <p className="text-xs font-medium uppercase tracking-wider text-muted">
-                      {product.category}
-                    </p>
-                    <h3 className="mt-1 font-display text-base font-semibold text-foreground">
-                      {product.name}
-                    </h3>
-                    <p className="mt-2 text-sm text-muted line-clamp-2">
-                      {product.description}
-                    </p>
-                    <p className="mt-3 font-semibold text-foreground">
-                      ${product.price.toFixed(2)}
-                    </p>
-                    <button
-                      type="button"
-                      disabled
-                      className="mt-4 w-full rounded-md border border-border bg-surface-muted px-4 py-2 text-sm font-medium text-muted cursor-not-allowed"
-                    >
-                      Add to Cart — Soon
-                    </button>
-                  </div>
-                </Card>
-              </FadeIn>
-            ))}
-          </div>
+          {products.length === 0 ? (
+            <EmptyState
+              title="No products listed yet"
+              description="Our parts catalogue is being updated. Call us and we will source what you need."
+              action={
+                <Link
+                  href="/contact"
+                  className="inline-flex h-11 items-center justify-center rounded-md bg-accent px-6 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
+                >
+                  Contact us
+                </Link>
+              }
+            />
+          ) : (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {products.map((product, index) => (
+                <FadeIn key={product._id} delay={index * 0.05}>
+                  <ProductCard product={product} />
+                </FadeIn>
+              ))}
+            </div>
+          )}
         </Container>
       </section>
     </>

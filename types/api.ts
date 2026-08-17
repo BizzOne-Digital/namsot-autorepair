@@ -8,6 +8,8 @@ export type ApiErrorResponse = {
   error: {
     message: string;
     code: string;
+    /** Field name to message map, present for validation failures. */
+    details?: Record<string, string>;
   };
 };
 

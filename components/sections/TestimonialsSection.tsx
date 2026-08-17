@@ -1,12 +1,16 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { getFeaturedTestimonials } from "@/data/testimonials";
+import { getTestimonials } from "@/lib/content";
 import { TestimonialCard } from "@/components/testimonials/TestimonialCard";
 import { FadeIn } from "@/components/motion/FadeIn";
 
-export function TestimonialsSection() {
-  const testimonials = getFeaturedTestimonials(3);
+export async function TestimonialsSection() {
+  const testimonials = (await getTestimonials()).slice(0, 3);
+
+  if (testimonials.length === 0) {
+    return null;
+  }
 
   return (
     <section className="section-spacing bg-surface-muted">
@@ -28,7 +32,7 @@ export function TestimonialsSection() {
 
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {testimonials.map((testimonial, index) => (
-            <FadeIn key={testimonial.id} delay={index * 0.08}>
+            <FadeIn key={testimonial._id} delay={index * 0.08}>
               <TestimonialCard testimonial={testimonial} />
             </FadeIn>
           ))}

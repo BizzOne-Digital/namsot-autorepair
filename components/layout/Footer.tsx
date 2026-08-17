@@ -1,10 +1,23 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { businessInfo, footerLinks, openingHours } from "@/data/site";
-import { siteConfig } from "@/lib/metadata";
+import { footerLinks } from "@/data/site";
+import { getSiteSettings, mailtoHref, telHref } from "@/lib/content";
 
-export function Footer() {
+const SOCIAL_LABELS: Record<string, string> = {
+  facebook: "Facebook",
+  instagram: "Instagram",
+  x: "X",
+  youtube: "YouTube",
+  linkedin: "LinkedIn",
+};
+
+export async function Footer() {
+  const settings = await getSiteSettings();
   const year = new Date().getFullYear();
+
+  const socials = Object.entries(settings.socialLinks).filter(
+    ([, url]) => Boolean(url),
+  );
 
   return (
     <footer className="border-t border-charcoal-800 bg-charcoal text-off-white">
@@ -25,19 +38,35 @@ export function Footer() {
             </p>
             <div className="space-y-1 text-sm">
               <a
-                href={businessInfo.phoneHref}
+                href={telHref(settings.contactPhone)}
                 className="text-off-white/80 hover:text-accent transition-colors"
               >
-                {businessInfo.phone}
+                {settings.contactPhone}
               </a>
               <br />
               <a
-                href={businessInfo.emailHref}
+                href={mailtoHref(settings.contactEmail)}
                 className="text-off-white/80 hover:text-accent transition-colors"
               >
-                {businessInfo.email}
+                {settings.contactEmail}
               </a>
             </div>
+            {socials.length > 0 ? (
+              <ul className="flex flex-wrap gap-x-4 gap-y-2">
+                {socials.map(([platform, url]) => (
+                  <li key={platform}>
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="text-sm text-off-white/70 hover:text-accent transition-colors"
+                    >
+                      {SOCIAL_LABELS[platform] ?? platform}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </div>
 
           <div>
@@ -81,7 +110,7 @@ export function Footer() {
               Hours
             </h3>
             <ul className="mt-4 space-y-2">
-              {openingHours.map((item) => (
+              {settings.openingHours.map((item) => (
                 <li
                   key={item.days}
                   className="flex justify-between gap-4 text-sm text-off-white/70"
@@ -107,7 +136,7 @@ export function Footer() {
 
         <div className="border-t border-charcoal-800 py-6">
           <p className="text-center text-sm text-off-white/50">
-            © {year} {siteConfig.name}. All rights reserved.
+            © {year} {settings.siteName}. All rights reserved.
           </p>
         </div>
       </Container>

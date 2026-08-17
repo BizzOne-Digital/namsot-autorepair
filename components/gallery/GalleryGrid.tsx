@@ -1,36 +1,56 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
-import type { GalleryItem } from "@/data/gallery";
-import { galleryCategories } from "@/data/gallery";
+import type { ContentGalleryItem } from "@/lib/content/types";
 import { cn } from "@/utils/cn";
 import { FadeIn } from "@/components/motion/FadeIn";
 
 interface GalleryGridProps {
-  items: GalleryItem[];
+  items: ContentGalleryItem[];
   className?: string;
 }
 
+const ALL_CATEGORIES = "All";
+
 export function GalleryGrid({ items, className }: GalleryGridProps) {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [activeCategory, setActiveCategory] = useState(ALL_CATEGORIES);
+
+  // Categories are free text in the dashboard, so the filter bar is built from
+  // whatever the published items actually use.
+  const categories = useMemo(() => {
+    const used = new Set<string>();
+
+    for (const item of items) {
+      if (item.category) {
+        used.add(item.category);
+      }
+    }
+
+    return [ALL_CATEGORIES, ...Array.from(used).sort()];
+  }, [items]);
+
+  const isActiveCategoryAvailable = categories.includes(activeCategory);
+  const effectiveCategory = isActiveCategoryAvailable
+    ? activeCategory
+    : ALL_CATEGORIES;
 
   const filtered =
-    activeCategory === "All"
+    effectiveCategory === ALL_CATEGORIES
       ? items
-      : items.filter((item) => item.category === activeCategory);
+      : items.filter((item) => item.category === effectiveCategory);
 
   return (
     <div className={className}>
       <div className="flex flex-wrap gap-2">
-        {galleryCategories.map((category) => (
+        {categories.map((category) => (
           <button
             key={category}
             type="button"
             onClick={() => setActiveCategory(category)}
             className={cn(
               "rounded-full px-4 py-1.5 text-sm font-medium transition-colors",
-              activeCategory === category
+              effectiveCategory === category
                 ? "bg-accent text-white"
                 : "bg-surface-muted text-muted hover:text-foreground",
             )}
@@ -42,7 +62,7 @@ export function GalleryGrid({ items, className }: GalleryGridProps) {
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((item, index) => (
-          <FadeIn key={item.id} delay={index * 0.03}>
+          <FadeIn key={item._id} delay={index * 0.03}>
             <div className="group relative aspect-[4/3] overflow-hidden rounded-lg bg-charcoal">
               <Image
                 src={item.imageUrl}

@@ -3,14 +3,16 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { siteConfig } from "@/lib/metadata";
-import { businessInfo } from "@/data/site";
+import { getSiteSettings, mailtoHref } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
   description: `Terms of service for ${siteConfig.name}.`,
 };
 
-export default function TermsPage() {
+export default async function TermsPage() {
+  const settings = await getSiteSettings();
+
   return (
     <>
       <PageHeader title="Terms of Service" />
@@ -66,10 +68,10 @@ export default function TermsPage() {
                 <p className="mt-2">
                   Questions about these terms may be directed to{" "}
                   <a
-                    href={businessInfo.emailHref}
+                    href={mailtoHref(settings.contactEmail)}
                     className="text-accent hover:text-accent-hover"
                   >
-                    {businessInfo.email}
+                    {settings.contactEmail}
                   </a>
                   .
                 </p>

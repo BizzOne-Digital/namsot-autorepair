@@ -1,27 +1,27 @@
 "use client";
 
 import { useState } from "react";
-import type { FAQItem } from "@/data/faq";
+import type { ContentFAQ } from "@/lib/content/types";
 import { cn } from "@/utils/cn";
 
 interface FAQAccordionProps {
-  items: FAQItem[];
+  items: ContentFAQ[];
   className?: string;
 }
 
 export function FAQAccordion({ items, className }: FAQAccordionProps) {
-  const [openId, setOpenId] = useState<string | null>(items[0]?.id ?? null);
+  const [openId, setOpenId] = useState<string | null>(items[0]?._id ?? null);
 
   return (
     <div className={cn("divide-y divide-border rounded-lg border border-border bg-surface", className)}>
       {items.map((item) => {
-        const isOpen = openId === item.id;
+        const isOpen = openId === item._id;
 
         return (
-          <div key={item.id}>
+          <div key={item._id}>
             <button
               type="button"
-              onClick={() => setOpenId(isOpen ? null : item.id)}
+              onClick={() => setOpenId(isOpen ? null : item._id)}
               className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition-colors hover:bg-surface-muted"
               aria-expanded={isOpen}
             >

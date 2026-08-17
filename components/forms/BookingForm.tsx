@@ -7,14 +7,18 @@ import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
 import { Select } from "@/components/ui/Select";
 import { Button } from "@/components/ui/Button";
-import { getAllServices } from "@/data/services";
+import { SubmitError, submitForm } from "@/lib/api/public-client";
 import {
   bookingFormSchema,
   timeSlotOptions,
   type BookingFormData,
 } from "@/lib/validation/schemas";
 
-const services = getAllServices();
+/** Only the fields the picker needs, so the whole service document isn't shipped. */
+export interface BookingServiceOption {
+  slug: string;
+  name: string;
+}
 
 const initialState: BookingFormData = {
   serviceSlug: "",
@@ -29,14 +33,23 @@ const initialState: BookingFormData = {
   message: "",
 };
 
-function resolveInitialServiceSlug(serviceParam: string | null): string {
+function resolveInitialServiceSlug(
+  serviceParam: string | null,
+  services: BookingServiceOption[],
+): string {
   if (serviceParam && services.some((s) => s.slug === serviceParam)) {
     return serviceParam;
   }
   return "";
 }
 
-function BookingFormFields({ initialServiceSlug }: { initialServiceSlug: string }) {
+function BookingFormFields({
+  initialServiceSlug,
+  services,
+}: {
+  initialServiceSlug: string;
+  services: BookingServiceOption[];
+}) {
   const [form, setForm] = useState<BookingFormData>({
     ...initialState,
     serviceSlug: initialServiceSlug,
@@ -80,16 +93,29 @@ function BookingFormFields({ initialServiceSlug }: { initialServiceSlug: string 
       return;
     }
 
-    // MongoDB backend integration in a future phase
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      await submitForm("/api/bookings", result.data);
 
-    toast.success("Booking request submitted", {
-      description: "We'll confirm your appointment shortly.",
-    });
-    setForm(initialState);
-    setErrors({});
-    setIsSuccess(true);
-    setIsSubmitting(false);
+      toast.success("Booking request submitted", {
+        description: "We'll confirm your appointment shortly.",
+      });
+      setForm(initialState);
+      setErrors({});
+      setIsSuccess(true);
+    } catch (error) {
+      const message =
+        error instanceof SubmitError
+          ? error.message
+          : "Something went wrong. Please try again.";
+
+      if (error instanceof SubmitError) {
+        setErrors(error.details as Partial<Record<keyof BookingFormData, string>>);
+      }
+
+      toast.error("Booking request failed", { description: message });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSuccess) {
@@ -245,11 +271,22 @@ function BookingFormFields({ initialServiceSlug }: { initialServiceSlug: string 
   );
 }
 
-export function BookingForm() {
+interface BookingFormProps {
+  /** Active services, read from MongoDB by the page that renders the form. */
+  services: BookingServiceOption[];
+}
+
+export function BookingForm({ services }: BookingFormProps) {
   const searchParams = useSearchParams();
   const initialServiceSlug = resolveInitialServiceSlug(
     searchParams.get("service"),
+    services,
   );
 
-  return <BookingFormFields initialServiceSlug={initialServiceSlug} />;
+  return (
+    <BookingFormFields
+      initialServiceSlug={initialServiceSlug}
+      services={services}
+    />
+  );
 }

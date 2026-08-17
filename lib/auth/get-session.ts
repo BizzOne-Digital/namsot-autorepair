@@ -3,6 +3,7 @@ import { getIronSession } from "iron-session";
 import {
   defaultSession,
   getSessionOptions,
+  isSessionConfigured,
   type AdminSessionData,
 } from "./session";
 
@@ -12,6 +13,10 @@ export async function getAdminSession() {
 }
 
 export async function getAuthenticatedAdmin() {
+  if (!isSessionConfigured()) {
+    return null;
+  }
+
   const session = await getAdminSession();
 
   if (!session.isLoggedIn || !session.userId) {

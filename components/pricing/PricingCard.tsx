@@ -1,10 +1,10 @@
-import type { PricingPlan } from "@/data/pricing";
+import type { ContentPricingPlan } from "@/lib/content/types";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { cn } from "@/utils/cn";
 
 interface PricingCardProps {
-  plan: PricingPlan;
+  plan: ContentPricingPlan;
   className?: string;
 }
 

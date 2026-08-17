@@ -34,6 +34,9 @@ export async function connectDB(): Promise<typeof mongoose> {
   if (!cached.promise) {
     cached.promise = mongoose.connect(MONGODB_URI, {
       bufferCommands: false,
+      // Fail fast instead of hanging for the 30s default: an unreachable cluster
+      // should surface as an error the caller can report, not a stalled request.
+      serverSelectionTimeoutMS: 10_000,
     });
   }
 

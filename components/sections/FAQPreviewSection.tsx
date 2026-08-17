@@ -1,12 +1,16 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { getAllFAQItems } from "@/data/faq";
+import { getFaqs } from "@/lib/content";
 import { FAQAccordion } from "@/components/faq/FAQAccordion";
 import { FadeIn } from "@/components/motion/FadeIn";
 
-export function FAQPreviewSection() {
-  const items = getAllFAQItems().slice(0, 5);
+export async function FAQPreviewSection() {
+  const items = (await getFaqs()).slice(0, 5);
+
+  if (items.length === 0) {
+    return null;
+  }
 
   return (
     <section className="section-spacing bg-surface-muted">

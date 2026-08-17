@@ -1,9 +1,7 @@
-/**
- * Central registry of MongoDB model names for future schema registration.
- * Models are not implemented in Phase 1 — this prepares consistent naming.
- */
+/** Central registry of MongoDB model names, keeping registration consistent. */
 export const MODEL_NAMES = {
   USER: "User",
+  CONTACT_MESSAGE: "ContactMessage",
   PRODUCT: "Product",
   CATEGORY: "Category",
   ORDER: "Order",

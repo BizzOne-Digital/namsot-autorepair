@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
 import { Button } from "@/components/ui/Button";
+import { SubmitError, submitForm } from "@/lib/api/public-client";
 import {
   contactFormSchema,
   type ContactFormData,
@@ -52,15 +53,28 @@ export function ContactForm() {
       return;
     }
 
-    // Backend integration in a future phase
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    try {
+      await submitForm("/api/contact", result.data);
 
-    toast.success("Message sent successfully", {
-      description: "We'll get back to you within one business day.",
-    });
-    setForm(initialState);
-    setErrors({});
-    setIsSubmitting(false);
+      toast.success("Message sent successfully", {
+        description: "We'll get back to you within one business day.",
+      });
+      setForm(initialState);
+      setErrors({});
+    } catch (error) {
+      const message =
+        error instanceof SubmitError
+          ? error.message
+          : "Something went wrong. Please try again.";
+
+      if (error instanceof SubmitError) {
+        setErrors(error.details as Partial<Record<keyof ContactFormData, string>>);
+      }
+
+      toast.error("Message not sent", { description: message });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

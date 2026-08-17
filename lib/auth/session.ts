@@ -12,6 +12,16 @@ export const ADMIN_SESSION_COOKIE = "namsot_admin_session";
 
 const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24; // 24 hours
 
+/**
+ * Sessions cannot be encrypted without a long secret. Callers check this first so
+ * a misconfigured deployment can explain itself instead of throwing on every
+ * request.
+ */
+export function isSessionConfigured(): boolean {
+  const password = process.env.SESSION_SECRET;
+  return typeof password === "string" && password.length >= 32;
+}
+
 export function getSessionOptions(): SessionOptions {
   const password = process.env.SESSION_SECRET;
 

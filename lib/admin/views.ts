@@ -1,0 +1,783 @@
+import type { BadgeTone, FilterDef, ResourceView } from "./view-types";
+
+const publishedFilter: FilterDef = {
+  key: "isPublished",
+  label: "Visibility",
+  choices: [
+    { value: "all", label: "All" },
+    { value: "true", label: "Published" },
+    { value: "false", label: "Hidden" },
+  ],
+};
+
+const activeFilter: FilterDef = {
+  key: "isActive",
+  label: "Status",
+  choices: [
+    { value: "all", label: "All" },
+    { value: "true", label: "Active" },
+    { value: "false", label: "Inactive" },
+  ],
+};
+
+const bookingStatusTones: Record<string, BadgeTone> = {
+  pending: "warning",
+  confirmed: "accent",
+  completed: "success",
+  cancelled: "danger",
+};
+
+const orderStatusTones: Record<string, BadgeTone> = {
+  pending: "warning",
+  paid: "accent",
+  shipped: "accent",
+  completed: "success",
+  cancelled: "danger",
+};
+
+const messageStatusTones: Record<string, BadgeTone> = {
+  new: "warning",
+  read: "muted",
+  replied: "success",
+  archived: "muted",
+};
+
+const imageHint = "Full https:// URL, or a path starting with /";
+const orderHint = "Lower numbers appear first on the website";
+
+export const servicesView: ResourceView = {
+  endpoint: "/api/admin/services",
+  title: "Services",
+  description:
+    "The repair services shown on the website and offered in the booking form.",
+  singular: "service",
+  searchPlaceholder: "Search by name or slug",
+  slugSource: "name",
+  canCreate: true,
+  canDelete: true,
+  filters: [activeFilter],
+  emptyTitle: "No services yet",
+  emptyDescription:
+    "Add your first service so customers can browse and book it.",
+  columns: [
+    { key: "imageUrl", label: "", render: "thumbnail" },
+    { key: "name", label: "Service", sortable: true },
+    {
+      key: "priceFrom",
+      label: "From",
+      render: "money",
+      hideBelow: "sm",
+      sortable: true,
+    },
+    { key: "duration", label: "Duration", render: "muted", hideBelow: "md" },
+    { key: "order", label: "Order", render: "muted", hideBelow: "lg", sortable: true },
+    { key: "isActive", label: "Active", render: "boolean" },
+  ],
+  fields: [
+    { kind: "text", name: "name", label: "Name" },
+    { kind: "text", name: "slug", label: "URL slug", hint: "Used in /services/your-slug" },
+    {
+      kind: "textarea",
+      name: "shortDescription",
+      label: "Short description",
+      rows: 2,
+      wide: true,
+      hint: "One or two sentences for cards and listings",
+    },
+    { kind: "textarea", name: "description", label: "Full description", rows: 5, wide: true },
+    {
+      kind: "list",
+      name: "features",
+      label: "What's included",
+      rows: 5,
+      wide: true,
+      hint: "One item per line",
+    },
+    { kind: "text", name: "duration", label: "Duration", placeholder: "30–45 min" },
+    { kind: "number", name: "priceFrom", label: "Starting price", step: "1", min: 0 },
+    { kind: "text", name: "imageUrl", label: "Image URL", wide: true, hint: imageHint },
+    { kind: "text", name: "imageAlt", label: "Image alt text", wide: true },
+    {
+      kind: "number",
+      name: "order",
+      label: "Sort order",
+      min: 0,
+      hint: orderHint,
+      defaultValue: "0",
+    },
+    {
+      kind: "boolean",
+      name: "isActive",
+      label: "Show on the website",
+      defaultValue: true,
+    },
+  ],
+};
+
+export const pricingView: ResourceView = {
+  endpoint: "/api/admin/pricing",
+  title: "Pricing plans",
+  description: "The packages listed on the pricing page.",
+  singular: "pricing plan",
+  searchPlaceholder: "Search plans",
+  canCreate: true,
+  canDelete: true,
+  filters: [activeFilter],
+  emptyTitle: "No pricing plans yet",
+  emptyDescription: "Add a plan to start publishing your pricing page.",
+  columns: [
+    { key: "name", label: "Plan", sortable: true },
+    { key: "price", label: "Price", render: "money", sortable: true },
+    { key: "priceNote", label: "Note", render: "muted", hideBelow: "md" },
+    { key: "highlighted", label: "Featured", render: "boolean", hideBelow: "sm" },
+    { key: "isActive", label: "Active", render: "boolean" },
+  ],
+  fields: [
+    { kind: "text", name: "name", label: "Plan name" },
+    { kind: "number", name: "price", label: "Price", step: "1", min: 0 },
+    { kind: "textarea", name: "description", label: "Description", rows: 2, wide: true },
+    { kind: "text", name: "priceNote", label: "Price note", placeholder: "Starting at" },
+    {
+      kind: "number",
+      name: "order",
+      label: "Sort order",
+      min: 0,
+      hint: orderHint,
+      defaultValue: "0",
+    },
+    {
+      kind: "list",
+      name: "features",
+      label: "Included features",
+      rows: 6,
+      wide: true,
+      hint: "One feature per line",
+    },
+    { kind: "boolean", name: "highlighted", label: "Highlight this plan" },
+    {
+      kind: "boolean",
+      name: "isActive",
+      label: "Show on the website",
+      defaultValue: true,
+    },
+  ],
+};
+
+export const blogView: ResourceView = {
+  endpoint: "/api/admin/blog",
+  title: "Blog posts",
+  description: "Articles published to the blog.",
+  singular: "blog post",
+  searchPlaceholder: "Search by title, author or category",
+  slugSource: "title",
+  canCreate: true,
+  canDelete: true,
+  filters: [publishedFilter],
+  emptyTitle: "No blog posts yet",
+  emptyDescription: "Write your first article to start building your blog.",
+  columns: [
+    { key: "imageUrl", label: "", render: "thumbnail" },
+    { key: "title", label: "Title", sortable: true },
+    { key: "category", label: "Category", render: "muted", hideBelow: "sm" },
+    { key: "author", label: "Author", render: "muted", hideBelow: "md" },
+    {
+      key: "publishedAt",
+      label: "Published",
+      render: "date",
+      hideBelow: "md",
+      sortable: true,
+    },
+    { key: "isPublished", label: "Live", render: "boolean" },
+  ],
+  fields: [
+    { kind: "text", name: "title", label: "Title", wide: true },
+    { kind: "text", name: "slug", label: "URL slug", hint: "Used in /blog/your-slug" },
+    { kind: "text", name: "category", label: "Category", placeholder: "Maintenance" },
+    { kind: "textarea", name: "excerpt", label: "Excerpt", rows: 3, wide: true },
+    {
+      kind: "paragraphs",
+      name: "content",
+      label: "Article body",
+      rows: 14,
+      wide: true,
+      hint: "Separate paragraphs with a blank line",
+    },
+    { kind: "text", name: "author", label: "Author" },
+    { kind: "text", name: "readTime", label: "Read time", placeholder: "5 min read" },
+    {
+      kind: "date",
+      name: "publishedAt",
+      label: "Publish date",
+      emptyValue: "null",
+      hint: "Left blank, publishing stamps today's date",
+    },
+    { kind: "boolean", name: "isPublished", label: "Publish to the website" },
+    { kind: "text", name: "imageUrl", label: "Cover image URL", wide: true, hint: imageHint },
+    { kind: "text", name: "imageAlt", label: "Cover image alt text", wide: true },
+  ],
+};
+
+export const teamView: ResourceView = {
+  endpoint: "/api/admin/team",
+  title: "Team",
+  description: "The technicians and staff shown on the team page.",
+  singular: "team member",
+  searchPlaceholder: "Search by name or job title",
+  canCreate: true,
+  canDelete: true,
+  filters: [publishedFilter],
+  emptyTitle: "No team members yet",
+  emptyDescription: "Introduce your technicians to build customer trust.",
+  columns: [
+    { key: "imageUrl", label: "", render: "thumbnail" },
+    { key: "name", label: "Name", sortable: true },
+    { key: "role", label: "Job title", render: "muted", hideBelow: "sm" },
+    { key: "order", label: "Order", render: "muted", hideBelow: "lg", sortable: true },
+    { key: "isPublished", label: "Live", render: "boolean" },
+  ],
+  fields: [
+    { kind: "text", name: "name", label: "Full name" },
+    { kind: "text", name: "role", label: "Job title" },
+    { kind: "textarea", name: "bio", label: "Bio", rows: 5, wide: true },
+    { kind: "text", name: "imageUrl", label: "Photo URL", wide: true, hint: imageHint },
+    { kind: "text", name: "imageAlt", label: "Photo alt text", wide: true },
+    {
+      kind: "number",
+      name: "order",
+      label: "Sort order",
+      min: 0,
+      hint: orderHint,
+      defaultValue: "0",
+    },
+    {
+      kind: "boolean",
+      name: "isPublished",
+      label: "Show on the website",
+      defaultValue: true,
+    },
+  ],
+};
+
+export const testimonialsView: ResourceView = {
+  endpoint: "/api/admin/testimonials",
+  title: "Testimonials",
+  description: "Customer reviews featured across the website.",
+  singular: "testimonial",
+  searchPlaceholder: "Search by customer or review text",
+  canCreate: true,
+  canDelete: true,
+  filters: [publishedFilter],
+  emptyTitle: "No testimonials yet",
+  emptyDescription: "Add a customer review to build social proof.",
+  columns: [
+    { key: "authorName", label: "Customer", sortable: true },
+    { key: "rating", label: "Rating", sortable: true },
+    { key: "vehicle", label: "Vehicle", render: "muted", hideBelow: "sm" },
+    { key: "review", label: "Review", render: "longText", hideBelow: "lg" },
+    { key: "isPublished", label: "Live", render: "boolean" },
+  ],
+  fields: [
+    { kind: "text", name: "authorName", label: "Customer name" },
+    {
+      kind: "number",
+      name: "rating",
+      label: "Rating (1-5)",
+      min: 1,
+      max: 5,
+      step: "1",
+      defaultValue: "5",
+    },
+    { kind: "textarea", name: "review", label: "Review", rows: 4, wide: true },
+    { kind: "text", name: "vehicle", label: "Vehicle", placeholder: "2018 Honda Civic" },
+    {
+      kind: "number",
+      name: "order",
+      label: "Sort order",
+      min: 0,
+      hint: orderHint,
+      defaultValue: "0",
+    },
+    { kind: "text", name: "imageUrl", label: "Photo URL (optional)", wide: true, hint: imageHint },
+    { kind: "text", name: "imageAlt", label: "Photo alt text (optional)", wide: true },
+    {
+      kind: "boolean",
+      name: "isPublished",
+      label: "Show on the website",
+      defaultValue: true,
+    },
+  ],
+};
+
+export const faqsView: ResourceView = {
+  endpoint: "/api/admin/faqs",
+  title: "FAQs",
+  description: "Questions answered on the FAQ page and homepage preview.",
+  singular: "FAQ",
+  searchPlaceholder: "Search questions and answers",
+  canCreate: true,
+  canDelete: true,
+  filters: [publishedFilter],
+  emptyTitle: "No FAQs yet",
+  emptyDescription: "Answer common questions to reduce phone enquiries.",
+  columns: [
+    { key: "question", label: "Question" },
+    { key: "answer", label: "Answer", render: "longText", hideBelow: "md" },
+    { key: "order", label: "Order", render: "muted", hideBelow: "lg", sortable: true },
+    { key: "isPublished", label: "Live", render: "boolean" },
+  ],
+  fields: [
+    { kind: "text", name: "question", label: "Question", wide: true },
+    { kind: "textarea", name: "answer", label: "Answer", rows: 5, wide: true },
+    {
+      kind: "number",
+      name: "order",
+      label: "Sort order",
+      min: 0,
+      hint: orderHint,
+      defaultValue: "0",
+    },
+    {
+      kind: "boolean",
+      name: "isPublished",
+      label: "Show on the website",
+      defaultValue: true,
+    },
+  ],
+};
+
+export const galleryView: ResourceView = {
+  endpoint: "/api/admin/gallery",
+  title: "Gallery",
+  description: "Workshop photos displayed on the gallery page.",
+  singular: "gallery item",
+  searchPlaceholder: "Search by title or category",
+  canCreate: true,
+  canDelete: true,
+  filters: [publishedFilter],
+  emptyTitle: "No gallery images yet",
+  emptyDescription: "Show off your workshop and completed jobs.",
+  columns: [
+    { key: "imageUrl", label: "", render: "thumbnail" },
+    { key: "title", label: "Title", sortable: true },
+    { key: "category", label: "Category", render: "muted" },
+    { key: "order", label: "Order", render: "muted", hideBelow: "lg", sortable: true },
+    { key: "isPublished", label: "Live", render: "boolean" },
+  ],
+  fields: [
+    { kind: "text", name: "title", label: "Title" },
+    {
+      kind: "text",
+      name: "category",
+      label: "Category",
+      hint: "Categories become the gallery filter buttons",
+    },
+    { kind: "text", name: "imageUrl", label: "Image URL", wide: true, hint: imageHint },
+    { kind: "text", name: "imageAlt", label: "Image alt text", wide: true },
+    {
+      kind: "number",
+      name: "order",
+      label: "Sort order",
+      min: 0,
+      hint: orderHint,
+      defaultValue: "0",
+    },
+    {
+      kind: "boolean",
+      name: "isPublished",
+      label: "Show on the website",
+      defaultValue: true,
+    },
+  ],
+};
+
+export const productsView: ResourceView = {
+  endpoint: "/api/admin/products",
+  title: "Products",
+  description: "Parts and fluids listed in the online shop.",
+  singular: "product",
+  searchPlaceholder: "Search by name, slug or SKU",
+  slugSource: "name",
+  canCreate: true,
+  canDelete: true,
+  filters: [
+    activeFilter,
+    {
+      key: "isFeatured",
+      label: "Featured",
+      choices: [
+        { value: "all", label: "All" },
+        { value: "true", label: "Featured" },
+        { value: "false", label: "Not featured" },
+      ],
+    },
+  ],
+  emptyTitle: "No products yet",
+  emptyDescription: "Add the parts and fluids you want to sell online.",
+  columns: [
+    { key: "images", label: "", render: "thumbnail" },
+    { key: "name", label: "Product", sortable: true },
+    { key: "price", label: "Price", render: "money", sortable: true },
+    { key: "stock", label: "Stock", hideBelow: "sm", sortable: true },
+    { key: "sku", label: "SKU", render: "muted", hideBelow: "lg" },
+    { key: "isActive", label: "Active", render: "boolean" },
+  ],
+  fields: [
+    { kind: "text", name: "name", label: "Product name" },
+    { kind: "text", name: "slug", label: "URL slug" },
+    {
+      kind: "select",
+      name: "categoryId",
+      label: "Category",
+      choicesKey: "categories",
+      placeholder: "No category",
+    },
+    { kind: "text", name: "sku", label: "SKU" },
+    { kind: "number", name: "price", label: "Price", step: "0.01", min: 0 },
+    {
+      kind: "number",
+      name: "compareAtPrice",
+      label: "Compare-at price",
+      step: "0.01",
+      min: 0,
+      hint: "Shown struck through when higher than the price",
+      emptyValue: "null",
+    },
+    {
+      kind: "number",
+      name: "stock",
+      label: "Stock on hand",
+      min: 0,
+      defaultValue: "0",
+    },
+    { kind: "textarea", name: "shortDescription", label: "Short description", rows: 2, wide: true },
+    { kind: "textarea", name: "description", label: "Full description", rows: 5, wide: true },
+    {
+      kind: "list",
+      name: "images",
+      label: "Image URLs",
+      rows: 4,
+      wide: true,
+      hint: "One URL per line — the first is used as the main image",
+    },
+    {
+      kind: "boolean",
+      name: "isActive",
+      label: "Show in the shop",
+      defaultValue: true,
+    },
+    { kind: "boolean", name: "isFeatured", label: "Feature on the homepage" },
+  ],
+};
+
+export const categoriesView: ResourceView = {
+  endpoint: "/api/admin/categories",
+  title: "Categories",
+  description: "Groupings used to organise shop products.",
+  singular: "category",
+  searchPlaceholder: "Search categories",
+  slugSource: "name",
+  canCreate: true,
+  canDelete: true,
+  filters: [activeFilter],
+  emptyTitle: "No categories yet",
+  emptyDescription: "Create categories to group your shop products.",
+  columns: [
+    { key: "name", label: "Category", sortable: true },
+    { key: "slug", label: "Slug", render: "muted", hideBelow: "sm" },
+    { key: "order", label: "Order", render: "muted", hideBelow: "lg", sortable: true },
+    { key: "isActive", label: "Active", render: "boolean" },
+  ],
+  fields: [
+    { kind: "text", name: "name", label: "Name" },
+    { kind: "text", name: "slug", label: "URL slug" },
+    { kind: "textarea", name: "description", label: "Description", rows: 3, wide: true },
+    {
+      kind: "number",
+      name: "order",
+      label: "Sort order",
+      min: 0,
+      hint: orderHint,
+      defaultValue: "0",
+    },
+    { kind: "boolean", name: "isActive", label: "Active", defaultValue: true },
+  ],
+};
+
+export const bookingsView: ResourceView = {
+  endpoint: "/api/admin/bookings",
+  title: "Bookings",
+  description:
+    "Appointment requests submitted through the website booking form.",
+  singular: "booking",
+  searchPlaceholder: "Search by customer, email or phone",
+  canCreate: false,
+  canDelete: true,
+  filters: [
+    {
+      key: "status",
+      label: "Status",
+      choices: [
+        { value: "all", label: "All" },
+        { value: "pending", label: "Pending" },
+        { value: "confirmed", label: "Confirmed" },
+        { value: "completed", label: "Completed" },
+        { value: "cancelled", label: "Cancelled" },
+      ],
+    },
+  ],
+  emptyTitle: "No bookings yet",
+  emptyDescription:
+    "Requests from the website booking form will appear here automatically.",
+  columns: [
+    { key: "customerName", label: "Customer", sortable: true },
+    { key: "serviceName", label: "Service", hideBelow: "sm" },
+    { key: "date", label: "Date", sortable: true },
+    { key: "time", label: "Time", render: "muted", hideBelow: "md" },
+    { key: "phone", label: "Phone", render: "muted", hideBelow: "lg" },
+    {
+      key: "status",
+      label: "Status",
+      render: "badge",
+      tones: bookingStatusTones,
+      sortable: true,
+    },
+  ],
+  detailFields: [
+    { key: "customerName", label: "Customer" },
+    { key: "email", label: "Email" },
+    { key: "phone", label: "Phone" },
+    { key: "serviceName", label: "Service" },
+    { key: "vehicleMake", label: "Vehicle make" },
+    { key: "vehicleModel", label: "Vehicle model" },
+    { key: "vehicleYear", label: "Vehicle year" },
+    { key: "createdAt", label: "Requested", render: "datetime" },
+  ],
+  fields: [
+    {
+      kind: "select",
+      name: "status",
+      label: "Status",
+      choices: [
+        { value: "pending", label: "Pending" },
+        { value: "confirmed", label: "Confirmed" },
+        { value: "completed", label: "Completed" },
+        { value: "cancelled", label: "Cancelled" },
+      ],
+    },
+    { kind: "text", name: "time", label: "Time", emptyValue: "omit" },
+    { kind: "date", name: "date", label: "Date", emptyValue: "omit" },
+    {
+      kind: "textarea",
+      name: "message",
+      label: "Customer notes",
+      rows: 4,
+      wide: true,
+      hint: "Submitted by the customer — edit only to add internal context",
+    },
+  ],
+};
+
+export const ordersView: ResourceView = {
+  endpoint: "/api/admin/orders",
+  title: "Orders",
+  description: "Shop orders and their fulfilment status.",
+  singular: "order",
+  searchPlaceholder: "Search by order number or customer",
+  canCreate: false,
+  canDelete: true,
+  filters: [
+    {
+      key: "status",
+      label: "Status",
+      choices: [
+        { value: "all", label: "All" },
+        { value: "pending", label: "Pending" },
+        { value: "paid", label: "Paid" },
+        { value: "shipped", label: "Shipped" },
+        { value: "completed", label: "Completed" },
+        { value: "cancelled", label: "Cancelled" },
+      ],
+    },
+  ],
+  emptyTitle: "No orders yet",
+  emptyDescription: "Orders placed through the shop will be listed here.",
+  columns: [
+    { key: "orderNumber", label: "Order", sortable: true },
+    { key: "customerName", label: "Customer", hideBelow: "sm" },
+    { key: "customerEmail", label: "Email", render: "muted", hideBelow: "lg" },
+    { key: "total", label: "Total", render: "money", sortable: true },
+    {
+      key: "createdAt",
+      label: "Placed",
+      render: "date",
+      hideBelow: "md",
+      sortable: true,
+    },
+    {
+      key: "status",
+      label: "Status",
+      render: "badge",
+      tones: orderStatusTones,
+      sortable: true,
+    },
+  ],
+  detailFields: [
+    { key: "orderNumber", label: "Order number" },
+    { key: "customerName", label: "Customer" },
+    { key: "customerEmail", label: "Email" },
+    { key: "total", label: "Total", render: "money" },
+    { key: "createdAt", label: "Placed", render: "datetime" },
+    { key: "items", label: "Items", render: "orderItems" },
+  ],
+  fields: [
+    {
+      kind: "select",
+      name: "status",
+      label: "Status",
+      choices: [
+        { value: "pending", label: "Pending" },
+        { value: "paid", label: "Paid" },
+        { value: "shipped", label: "Shipped" },
+        { value: "completed", label: "Completed" },
+        { value: "cancelled", label: "Cancelled" },
+      ],
+    },
+  ],
+};
+
+export const messagesView: ResourceView = {
+  endpoint: "/api/admin/messages",
+  title: "Messages",
+  description: "Enquiries submitted through the website contact form.",
+  singular: "message",
+  searchPlaceholder: "Search by name, email or subject",
+  canCreate: false,
+  canDelete: true,
+  filters: [
+    {
+      key: "status",
+      label: "Status",
+      choices: [
+        { value: "all", label: "All" },
+        { value: "new", label: "New" },
+        { value: "read", label: "Read" },
+        { value: "replied", label: "Replied" },
+        { value: "archived", label: "Archived" },
+      ],
+    },
+  ],
+  emptyTitle: "No messages yet",
+  emptyDescription:
+    "Enquiries from the website contact form will appear here automatically.",
+  columns: [
+    { key: "name", label: "From", sortable: true },
+    { key: "subject", label: "Subject", hideBelow: "sm" },
+    { key: "email", label: "Email", render: "muted", hideBelow: "lg" },
+    {
+      key: "createdAt",
+      label: "Received",
+      render: "date",
+      hideBelow: "md",
+      sortable: true,
+    },
+    {
+      key: "status",
+      label: "Status",
+      render: "badge",
+      tones: messageStatusTones,
+      sortable: true,
+    },
+  ],
+  detailFields: [
+    { key: "name", label: "From" },
+    { key: "email", label: "Email" },
+    { key: "phone", label: "Phone" },
+    { key: "subject", label: "Subject" },
+    { key: "createdAt", label: "Received", render: "datetime" },
+    { key: "message", label: "Message", render: "longText" },
+  ],
+  fields: [
+    {
+      kind: "select",
+      name: "status",
+      label: "Status",
+      choices: [
+        { value: "new", label: "New" },
+        { value: "read", label: "Read" },
+        { value: "replied", label: "Replied" },
+        { value: "archived", label: "Archived" },
+      ],
+    },
+  ],
+};
+
+export const usersView: ResourceView = {
+  endpoint: "/api/admin/users",
+  title: "Admin users",
+  description:
+    "Accounts that can sign in to this dashboard. Admins manage everything; staff cannot manage users.",
+  singular: "user",
+  searchPlaceholder: "Search by name or email",
+  canCreate: true,
+  canDelete: true,
+  filters: [
+    {
+      key: "role",
+      label: "Role",
+      choices: [
+        { value: "all", label: "All" },
+        { value: "admin", label: "Admin" },
+        { value: "staff", label: "Staff" },
+      ],
+    },
+  ],
+  emptyTitle: "No users found",
+  emptyDescription: "Invite a colleague by creating an account for them.",
+  columns: [
+    { key: "name", label: "Name", sortable: true },
+    { key: "email", label: "Email", render: "muted", sortable: true },
+    {
+      key: "role",
+      label: "Role",
+      render: "badge",
+      tones: { admin: "accent", staff: "muted" },
+      sortable: true,
+    },
+    {
+      key: "createdAt",
+      label: "Added",
+      render: "date",
+      hideBelow: "md",
+      sortable: true,
+    },
+    { key: "isActive", label: "Active", render: "boolean" },
+  ],
+  fields: [
+    { kind: "text", name: "name", label: "Full name" },
+    { kind: "text", name: "email", label: "Email", inputType: "email" },
+    {
+      kind: "text",
+      name: "password",
+      label: "Password",
+      inputType: "password",
+      wide: true,
+      emptyValue: "omit",
+      hint: "At least 10 characters. Leave blank when editing to keep the current password.",
+    },
+    {
+      kind: "select",
+      name: "role",
+      label: "Role",
+      choices: [
+        { value: "staff", label: "Staff" },
+        { value: "admin", label: "Admin" },
+      ],
+    },
+    {
+      kind: "boolean",
+      name: "isActive",
+      label: "Account active",
+      defaultValue: true,
+    },
+  ],
+};

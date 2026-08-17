@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { BlogPost } from "@/data/blog";
+import type { ContentBlogPost } from "@/lib/content/types";
 import { Card } from "@/components/ui/Card";
 import { cn } from "@/utils/cn";
 
 interface BlogCardProps {
-  post: BlogPost;
+  post: ContentBlogPost;
   className?: string;
 }
 
@@ -25,8 +25,12 @@ export function BlogCard({ post, className }: BlogCardProps) {
         <div className="p-5">
           <div className="flex items-center gap-3 text-xs text-muted">
             <span className="font-medium text-accent">{post.category}</span>
-            <span>·</span>
-            <span>{post.readTime}</span>
+            {post.readTime ? (
+              <>
+                <span>·</span>
+                <span>{post.readTime}</span>
+              </>
+            ) : null}
           </div>
           <h3 className="mt-2 font-display text-lg font-semibold text-foreground group-hover:text-accent transition-colors line-clamp-2">
             {post.title}

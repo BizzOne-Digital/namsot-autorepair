@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { Service } from "@/data/services";
+import type { ContentService } from "@/lib/content/types";
 import { cn } from "@/utils/cn";
 import { Card } from "@/components/ui/Card";
 
 interface ServiceCardProps {
-  service: Service;
+  service: ContentService;
   className?: string;
 }
 

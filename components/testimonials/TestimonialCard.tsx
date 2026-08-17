@@ -1,4 +1,4 @@
-import type { Testimonial } from "@/data/testimonials";
+import type { ContentTestimonial } from "@/lib/content/types";
 import { Card } from "@/components/ui/Card";
 import { cn } from "@/utils/cn";
 
@@ -24,7 +24,7 @@ function StarRating({ rating }: { rating: number }) {
 }
 
 interface TestimonialCardProps {
-  testimonial: Testimonial;
+  testimonial: ContentTestimonial;
   className?: string;
 }
 

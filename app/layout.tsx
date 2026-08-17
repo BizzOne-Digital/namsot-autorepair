@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter, Barlow_Condensed } from "next/font/google";
-import { SiteLayout } from "@/components/layout/SiteLayout";
 import { ToastProvider } from "@/components/providers/ToastProvider";
 import { baseMetadata } from "@/lib/metadata";
 import "./globals.css";
@@ -20,6 +19,10 @@ const barlowCondensed = Barlow_Condensed({
 
 export const metadata: Metadata = baseMetadata;
 
+/**
+ * The root layout stays chrome-free: the marketing header and footer live in the
+ * `(public)` group, and the admin dashboard supplies its own shell.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,7 +34,7 @@ export default function RootLayout({
       className={`${inter.variable} ${barlowCondensed.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-background text-foreground">
-        <SiteLayout>{children}</SiteLayout>
+        {children}
         <ToastProvider />
       </body>
     </html>

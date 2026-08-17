@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { getFeaturedServices } from "@/data/services";
+import { getServices } from "@/lib/content";
 import { ServiceCard } from "@/components/services/ServiceCard";
 import { FadeIn } from "@/components/motion/FadeIn";
 
@@ -10,11 +10,15 @@ interface ServicesSectionProps {
   limit?: number;
 }
 
-export function ServicesSection({
+export async function ServicesSection({
   showViewAll = true,
   limit = 6,
 }: ServicesSectionProps) {
-  const services = getFeaturedServices(limit);
+  const services = (await getServices()).slice(0, limit);
+
+  if (services.length === 0) {
+    return null;
+  }
 
   return (
     <section className="section-spacing bg-background">
@@ -38,7 +42,7 @@ export function ServicesSection({
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => (
-            <FadeIn key={service.slug} delay={index * 0.05}>
+            <FadeIn key={service._id} delay={index * 0.05}>
               <ServiceCard service={service} />
             </FadeIn>
           ))}
