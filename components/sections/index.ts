@@ -1,0 +1,13 @@
+export { HeroSection } from "./HeroSection";
+export { TrustIndicatorsSection } from "./TrustIndicatorsSection";
+export { ServicesSection } from "./ServicesSection";
+export { WhyChooseUsSection } from "./WhyChooseUsSection";
+export { FeaturedProductsSection } from "./FeaturedProductsSection";
+export { BookingCTASection } from "./BookingCTASection";
+export { AboutPreviewSection } from "./AboutPreviewSection";
+export { TeamPreviewSection } from "./TeamPreviewSection";
+export { TestimonialsSection } from "./TestimonialsSection";
+export { PromoSection } from "./PromoSection";
+export { BlogPreviewSection } from "./BlogPreviewSection";
+export { FAQPreviewSection } from "./FAQPreviewSection";
+export { ContactPreviewSection } from "./ContactPreviewSection";
