@@ -13,4 +13,4 @@ export {
   getBlogPostBySlug,
   getSiteSettings,
 } from "./read";
-export { telHref, mailtoHref } from "./links";
+export { telHref, mailtoHref, mapsHref } from "./links";

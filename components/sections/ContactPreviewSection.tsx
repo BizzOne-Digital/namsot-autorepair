@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { getSiteSettings, mailtoHref, telHref } from "@/lib/content";
+import { getSiteSettings, mailtoHref, mapsHref, telHref } from "@/lib/content";
 import { Card } from "@/components/ui/Card";
 import { FadeIn } from "@/components/motion/FadeIn";
 
@@ -77,7 +77,14 @@ export async function ContactPreviewSection() {
         <FadeIn delay={0.2}>
           <div className="mt-8 flex flex-col items-center justify-between gap-4 rounded-lg border border-dashed border-border bg-surface-muted p-8 text-center sm:flex-row sm:text-left">
             <div>
-              <p className="font-medium text-foreground">{settings.address}</p>
+              <a
+                href={mapsHref(settings.address)}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="font-medium text-foreground hover:text-accent transition-colors"
+              >
+                {settings.address}
+              </a>
               <p className="mt-1 text-sm text-muted">{settings.addressLine}</p>
             </div>
             <Link

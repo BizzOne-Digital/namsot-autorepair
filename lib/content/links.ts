@@ -20,3 +20,9 @@ export function telHref(phone: string): string {
 export function mailtoHref(email: string): string {
   return email ? `mailto:${email}` : "";
 }
+
+export function mapsHref(address: string): string {
+  const query = address.trim();
+  if (!query) return "";
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { footerLinks } from "@/data/site";
 import { LogoLink } from "./Logo";
-import { getSiteSettings, mailtoHref, telHref } from "@/lib/content";
+import { getSiteSettings, mailtoHref, mapsHref, telHref } from "@/lib/content";
 
 const SOCIAL_LABELS: Record<string, string> = {
   facebook: "Facebook",
@@ -31,6 +31,15 @@ export async function Footer() {
               honest service, and your safety on every job.
             </p>
             <div className="space-y-1 text-sm">
+              <a
+                href={mapsHref(settings.address)}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="block text-off-white/80 hover:text-accent transition-colors"
+              >
+                {settings.address}
+              </a>
+              <p className="text-off-white/60">{settings.addressLine}</p>
               <a
                 href={telHref(settings.contactPhone)}
                 className="text-off-white/80 hover:text-accent transition-colors"

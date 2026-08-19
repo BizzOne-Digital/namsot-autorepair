@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { ContactForm } from "@/components/forms/ContactForm";
-import { getSiteSettings, mailtoHref, telHref } from "@/lib/content";
+import { getSiteSettings, mailtoHref, mapsHref, telHref } from "@/lib/content";
 import { FadeIn } from "@/components/motion/FadeIn";
 
 import { images } from "@/data/images";
@@ -103,15 +103,25 @@ export default async function ContactPage() {
                   <h3 className="font-display text-sm font-semibold uppercase tracking-wider text-muted">
                     Location
                   </h3>
-                  <p className="mt-3 font-medium text-foreground">
+                  <a
+                    href={mapsHref(settings.address)}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="mt-3 block font-medium text-foreground hover:text-accent transition-colors"
+                  >
                     {settings.address}
-                  </p>
+                  </a>
                   <p className="mt-1 text-sm text-muted">
                     {settings.addressLine}
                   </p>
-                  <div className="mt-4 flex h-40 items-center justify-center rounded-md border border-dashed border-border bg-surface-muted text-sm text-muted">
-                    Map integration coming soon
-                  </div>
+                  <a
+                    href={mapsHref(settings.address)}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="mt-4 inline-flex h-10 items-center justify-center rounded-md border border-border px-5 text-sm font-semibold text-foreground transition-colors hover:bg-surface-muted"
+                  >
+                    Open in Google Maps
+                  </a>
                 </Card>
               </FadeIn>
             </div>
