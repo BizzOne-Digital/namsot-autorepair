@@ -26,7 +26,7 @@ export const baseMetadata: Metadata = {
     siteName,
     title: siteName,
     description: defaultDescription,
-    images: [{ url: "/logo.jpg", alt: siteName }],
+    images: [{ url: "/logo.png", alt: siteName }],
   },
   robots: {
     index: true,

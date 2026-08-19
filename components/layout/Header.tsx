@@ -33,8 +33,8 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/80">
       <Container>
-        <div className="flex h-16 items-center justify-between gap-4 lg:h-[4.5rem]">
-          <LogoLink priority />
+        <div className="flex h-[5.25rem] items-center justify-between gap-4 lg:h-[6.75rem]">
+          <LogoLink priority size="header" />
 
           <nav
             className="hidden items-center gap-1 lg:flex"

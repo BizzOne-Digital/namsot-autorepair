@@ -15,9 +15,9 @@ export const brandDisplay = {
 } as const;
 
 export const brandAssets = {
-  logo: "/logo.jpg",
-  logoWidth: 1024,
-  logoHeight: 980,
+  logo: "/logo.png",
+  logoWidth: 511,
+  logoHeight: 489,
 } as const;
 
 export const openingHours = [

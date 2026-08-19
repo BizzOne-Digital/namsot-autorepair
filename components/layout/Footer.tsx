@@ -25,7 +25,7 @@ export async function Footer() {
       <Container>
         <div className="grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-4 lg:py-16">
           <div className="space-y-4">
-            <LogoLink size="md" />
+            <LogoLink size="lg" />
             <p className="text-sm text-off-white/70 leading-relaxed">
               Professional automotive repair and maintenance. Quality workmanship,
               honest service, and your safety on every job.

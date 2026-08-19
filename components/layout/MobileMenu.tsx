@@ -95,7 +95,7 @@ export function MobileMenu() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex flex-col px-4 py-4">
-              <LogoLink className="mb-4 px-3" />
+              <LogoLink size="header" className="mb-4 px-3" />
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
