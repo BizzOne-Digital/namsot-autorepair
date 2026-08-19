@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { LoginForm } from "@/components/admin/LoginForm";
+import { LogoLink } from "@/components/layout/Logo";
 import { isSessionConfigured } from "@/lib/auth/session";
 import { isDbConfigured } from "@/lib/db";
 
@@ -24,13 +24,12 @@ export default async function AdminLoginPage({ searchParams }: LoginPageProps) {
     <main className="flex min-h-screen items-center justify-center bg-charcoal px-4 py-12">
       <div className="w-full max-w-md">
         <div className="mb-6 text-center">
-          <Link
-            href="/"
-            className="font-display text-2xl font-semibold text-white"
-          >
-            Namsot <span className="text-accent">Auto Repairs</span>
-          </Link>
-          <p className="mt-2 text-sm text-white/60">Dashboard sign in</p>
+          <LogoLink
+            size="lg"
+            className="inline-flex justify-center"
+            priority
+          />
+          <p className="mt-3 text-sm text-white/60">Dashboard sign in</p>
         </div>
 
         <div className="rounded-lg border border-border bg-surface p-6 shadow-xl">

@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import type { ContentProduct } from "@/lib/content/types";
+import { images } from "@/data/images";
 import { cn } from "@/utils/cn";
 
 interface ProductCardProps {
@@ -11,8 +12,7 @@ interface ProductCardProps {
   className?: string;
 }
 
-const placeholderImage =
-  "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=800&q=80";
+const placeholderImage = images.productFallback.src;
 
 export function ProductCard({ product, sizes, className }: ProductCardProps) {
   const image = product.images[0] ?? placeholderImage;

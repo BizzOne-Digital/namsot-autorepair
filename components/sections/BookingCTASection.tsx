@@ -11,13 +11,13 @@ export function BookingCTASection() {
             <h2 className="font-display text-3xl font-bold text-white sm:text-4xl">
               Ready to Book Your Service?
             </h2>
-            <p className="mt-4 max-w-xl text-base text-white/85 sm:text-lg">
+            <p className="mt-4 max-w-xl text-base text-white/90 sm:text-lg">
               Schedule your appointment online. Choose your service, pick a date,
               and we&apos;ll take care of the rest.
             </p>
             <Link
               href="/booking"
-              className="mt-8 inline-flex h-12 items-center justify-center rounded-md bg-charcoal px-8 text-sm font-semibold text-white transition-colors hover:bg-charcoal-800"
+              className="mt-8 inline-flex h-12 items-center justify-center rounded-md bg-white px-8 text-sm font-semibold text-charcoal transition-colors hover:bg-off-white"
             >
               Book a Service
             </Link>

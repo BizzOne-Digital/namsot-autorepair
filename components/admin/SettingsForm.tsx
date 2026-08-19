@@ -127,7 +127,7 @@ export function SettingsForm({ settings }: SettingsFormProps) {
           <Input
             name="addressLine"
             label="Service area line"
-            hint="Shown under the location, e.g. “Serving London and surrounding communities”"
+            hint="Shown under the location, e.g. “Serving Waterloo and surrounding communities”"
             value={draft.addressLine}
             error={errors.addressLine}
             onChange={(event) => set("addressLine", event.target.value)}

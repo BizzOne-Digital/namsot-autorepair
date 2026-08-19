@@ -5,39 +5,34 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { BookingCTASection } from "@/components/sections/BookingCTASection";
+import { businessInfo } from "@/data/site";
+import { images } from "@/data/images";
 import { siteConfig } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "About Us",
-  description:
-    "Learn about Namsot Auto Repairs — professional automotive repair built on trust, quality workmanship, and customer satisfaction.",
+  description: `Learn about ${siteConfig.name} — professional automotive repair built on trust, quality workmanship, and customer satisfaction.`,
 };
-
-const aboutHeroImage =
-  "https://images.unsplash.com/photo-1597986346643-d54491ef85bb?auto=format&fit=crop&w=2400&q=80";
-
-const aboutImage =
-  "https://images.unsplash.com/photo-1730461747788-ced66cb36434?auto=format&fit=crop&w=1200&q=80";
 
 export default function AboutPage() {
   return (
     <>
       <PageHeader
-        title="About Namsot Auto Repairs"
+        title={`About ${siteConfig.name}`}
         description="Professional automotive repair built on trust, quality workmanship, and a commitment to keeping you safe on the road."
-        imageUrl={aboutHeroImage}
-        imageAlt="Service bays and vehicle lifts inside the Namsot Auto Repairs workshop"
+        imageUrl={images.aboutHero.src}
+        imageAlt={images.aboutHero.alt}
         imageClassName="object-[60%_center]"
       />
 
-      <section className="section-spacing">
+      <section className="section-spacing bg-section-light">
         <Container>
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <FadeIn>
               <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-charcoal">
                 <Image
-                  src={aboutImage}
-                  alt="Vehicle raised on a two-post lift for underbody repair work"
+                  src={images.aboutStory.src}
+                  alt={images.aboutStory.alt}
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -51,11 +46,11 @@ export default function AboutPage() {
               </h2>
               <div className="mt-6 space-y-4 text-muted leading-relaxed">
                 <p>
-                  Namsot Auto Repairs was founded with a simple belief: every
+                  {businessInfo.name} was founded with a simple belief: every
                   driver deserves honest, skilled automotive service without
-                  unnecessary upsells or confusing jargon. We serve London,
-                  Ontario and surrounding communities with the same integrity
-                  we would expect for our own families&apos; vehicles.
+                  unnecessary upsells or confusing jargon. {businessInfo.addressLine}{" "}
+                  with the same integrity we would expect for our own
+                  families&apos; vehicles.
                 </p>
                 <p>
                   Our shop handles everything from routine oil changes to
@@ -75,7 +70,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-surface-muted">
+      <section className="section-spacing bg-section-white">
         <Container>
           <FadeIn>
             <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl text-center">
@@ -124,14 +119,14 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="section-spacing">
+      <section className="section-spacing bg-section-dark">
         <Container size="md">
           <FadeIn>
             <div className="text-center">
-              <h2 className="font-display text-2xl font-bold text-foreground">
+              <h2 className="font-display text-2xl font-bold text-off-white">
                 Ready to Experience the Difference?
               </h2>
-              <p className="mt-4 text-muted">
+              <p className="mt-4 text-off-white/75">
                 Join the drivers who trust {siteConfig.name} for reliable,
                 professional automotive care.
               </p>

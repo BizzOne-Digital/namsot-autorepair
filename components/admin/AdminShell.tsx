@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState, type ReactNode } from "react";
 import { toast } from "sonner";
 import { adminRequest } from "@/lib/admin/client";
-import { adminNavigation } from "@/lib/admin/navigation";
+import { Logo } from "@/components/layout/Logo";
 import { cn } from "@/utils/cn";
 
 interface AdminShellProps {
@@ -55,9 +55,9 @@ export function AdminShell({ admin, children }: AdminShellProps) {
           <Link
             href="/admin"
             onClick={() => setIsNavOpen(false)}
-            className="font-display text-lg font-semibold"
+            className="shrink-0"
           >
-            Namsot <span className="text-accent">Admin</span>
+            <Logo size="sm" />
           </Link>
         </div>
 

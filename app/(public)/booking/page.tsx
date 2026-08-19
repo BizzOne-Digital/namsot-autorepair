@@ -8,14 +8,13 @@ import { getServices, getSiteSettings, telHref } from "@/lib/content";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Loading } from "@/components/ui/Loading";
 
+import { images } from "@/data/images";
+import { siteConfig } from "@/lib/metadata";
+
 export const metadata: Metadata = {
   title: "Book a Service",
-  description:
-    "Schedule your automotive service appointment online with Namsot Auto Repairs.",
+  description: `Schedule your automotive service appointment online with ${siteConfig.name}.`,
 };
-
-const bookingHeroImage =
-  "https://images.unsplash.com/photo-1652852592938-15bf8c50ab6d?auto=format&fit=crop&w=2400&q=80";
 
 export default async function BookingPage() {
   const [services, settings] = await Promise.all([
@@ -33,12 +32,12 @@ export default async function BookingPage() {
       <PageHeader
         title="Book a Service"
         description="Schedule your appointment online. Select your service, choose a date and time, and we'll confirm your booking."
-        imageUrl={bookingHeroImage}
-        imageAlt="Vehicle raised on a scissor lift ready for a scheduled service"
+        imageUrl={images.bookingHero.src}
+        imageAlt={images.bookingHero.alt}
         imageClassName="object-[60%_center]"
       />
 
-      <section className="section-spacing">
+      <section className="section-spacing bg-section-light">
         <Container>
           <div className="grid gap-10 lg:grid-cols-3">
             <FadeIn className="lg:col-span-2">

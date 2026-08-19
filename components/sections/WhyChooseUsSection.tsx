@@ -5,7 +5,7 @@ import { FadeIn } from "@/components/motion/FadeIn";
 
 export function WhyChooseUsSection() {
   return (
-    <section className="section-spacing bg-charcoal text-off-white">
+    <section className="section-spacing bg-section-dark text-off-white">
       <Container>
         <FadeIn>
           <SectionHeading

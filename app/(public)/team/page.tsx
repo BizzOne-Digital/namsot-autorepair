@@ -7,14 +7,13 @@ import { TeamCard } from "@/components/team/TeamCard";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { BookingCTASection } from "@/components/sections/BookingCTASection";
 
+import { images } from "@/data/images";
+import { siteConfig } from "@/lib/metadata";
+
 export const metadata: Metadata = {
   title: "Our Team",
-  description:
-    "Meet the skilled technicians and staff behind Namsot Auto Repairs.",
+  description: `Meet the skilled technicians and staff behind ${siteConfig.name}.`,
 };
-
-const teamHeroImage =
-  "https://images.unsplash.com/photo-1646807284302-170c9505b2e7?auto=format&fit=crop&w=2400&q=80";
 
 export default async function TeamPage() {
   const members = await getTeamMembers();
@@ -24,12 +23,12 @@ export default async function TeamPage() {
       <PageHeader
         title="Our Team"
         description="Skilled professionals dedicated to quality workmanship and exceptional customer service."
-        imageUrl={teamHeroImage}
-        imageAlt="Technicians at work across the bays of a busy auto repair shop"
+        imageUrl={images.teamHero.src}
+        imageAlt={images.teamHero.alt}
         imageClassName="object-[60%_center]"
       />
 
-      <section className="section-spacing">
+      <section className="section-spacing bg-section-light">
         <Container>
           {members.length === 0 ? (
             <EmptyState

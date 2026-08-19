@@ -1,3 +1,5 @@
+import { images } from "./images";
+
 export interface ProductPlaceholder {
   id: string;
   name: string;
@@ -8,10 +10,6 @@ export interface ProductPlaceholder {
   imageAlt: string;
 }
 
-// Square source keeps every product card cropped identically.
-const unsplash = (id: string) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=600&h=600&q=80`;
-
 /** Placeholder products for shop UI — will be replaced by MongoDB/e-commerce in a future phase. */
 export const placeholderProducts: ProductPlaceholder[] = [
   {
@@ -20,8 +18,8 @@ export const placeholderProducts: ProductPlaceholder[] = [
     description: "Full synthetic engine oil for modern vehicles.",
     price: 54.99,
     category: "Fluids",
-    imageUrl: unsplash("photo-1746014995485-e8a698f39804"),
-    imageAlt: "Bottle of synthetic engine oil",
+    imageUrl: images.productOil.src,
+    imageAlt: images.productOil.alt,
   },
   {
     id: "2",
@@ -29,8 +27,8 @@ export const placeholderProducts: ProductPlaceholder[] = [
     description: "High-quality oil filter for most makes and models.",
     price: 14.99,
     category: "Filters",
-    imageUrl: unsplash("photo-1552195634-fdabf904f26e"),
-    imageAlt: "Spin-on oil filter alongside a bottle of motor oil",
+    imageUrl: images.productFilter.src,
+    imageAlt: images.productFilter.alt,
   },
   {
     id: "3",
@@ -38,8 +36,8 @@ export const placeholderProducts: ProductPlaceholder[] = [
     description: "Ceramic brake pads for quiet, reliable stopping.",
     price: 89.99,
     category: "Brakes",
-    imageUrl: unsplash("photo-1696494561430-de087dd0bd69"),
-    imageAlt: "Brake rotor and caliper assembly",
+    imageUrl: images.productBrakePads.src,
+    imageAlt: images.productBrakePads.alt,
   },
   {
     id: "4",
@@ -47,8 +45,8 @@ export const placeholderProducts: ProductPlaceholder[] = [
     description: "Reliable starting power with 3-year warranty.",
     price: 149.99,
     category: "Electrical",
-    imageUrl: unsplash("photo-1676337167752-2062c6ca7366"),
-    imageAlt: "12-volt automotive battery with terminal clamps",
+    imageUrl: images.productBattery.src,
+    imageAlt: images.productBattery.alt,
   },
 ];
 

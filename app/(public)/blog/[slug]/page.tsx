@@ -55,7 +55,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         />
       </PageHeader>
 
-      <article className="section-spacing">
+      <article className="section-spacing bg-section-light">
         <Container size="md">
           <FadeIn>
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted">

@@ -17,7 +17,7 @@ export default async function RefundPolicyPage() {
     <>
       <PageHeader title="Refund Policy" />
 
-      <section className="section-spacing">
+      <section className="section-spacing bg-section-white">
         <Container size="md">
           <FadeIn>
             <div className="space-y-6 text-sm text-muted leading-relaxed">

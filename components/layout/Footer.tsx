@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { footerLinks } from "@/data/site";
+import { LogoLink } from "./Logo";
 import { getSiteSettings, mailtoHref, telHref } from "@/lib/content";
 
 const SOCIAL_LABELS: Record<string, string> = {
@@ -24,14 +25,7 @@ export async function Footer() {
       <Container>
         <div className="grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-4 lg:py-16">
           <div className="space-y-4">
-            <div>
-              <p className="font-display text-lg font-bold uppercase tracking-[0.12em]">
-                NAMSOT
-              </p>
-              <p className="text-xs font-medium uppercase tracking-[0.2em] text-off-white/60">
-                Auto Repairs
-              </p>
-            </div>
+            <LogoLink size="md" />
             <p className="text-sm text-off-white/70 leading-relaxed">
               Professional automotive repair and maintenance. Quality workmanship,
               honest service, and your safety on every job.

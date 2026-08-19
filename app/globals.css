@@ -1,21 +1,32 @@
 @import "tailwindcss";
 
 :root {
-  /* Core palette — deep charcoal, off-white, automotive accent */
-  --charcoal: #1a1a1a;
-  --charcoal-800: #2d2d2d;
-  --charcoal-700: #404040;
-  --off-white: #f8f8f8;
-  --white: #ffffff;
-  --accent: #c41e3a;
-  --accent-hover: #a01830;
-  --muted: #6b7280;
-  --border: #e5e7eb;
+  /* Blue theme — light blue, white, and dark blue */
+  --blue-dark: #0a2540;
+  --blue-dark-800: #0f3460;
+  --blue-dark-700: #1a4a7a;
+  --blue-light: #e8f4fc;
+  --blue-light-muted: #d4eaf7;
+  --blue-accent: #2563eb;
+  --blue-accent-hover: #1d4ed8;
+  --blue-accent-light: #7dd3fc;
 
-  --background: var(--off-white);
-  --foreground: var(--charcoal);
+  /* Legacy token names used across components */
+  --charcoal: var(--blue-dark);
+  --charcoal-800: var(--blue-dark-800);
+  --charcoal-700: var(--blue-dark-700);
+  --off-white: #f0f7ff;
+  --white: #ffffff;
+  --accent: var(--blue-accent);
+  --accent-hover: var(--blue-accent-hover);
+  --accent-light: var(--blue-accent-light);
+  --muted: #5a7294;
+  --border: #c5dce8;
+
+  --background: var(--white);
+  --foreground: var(--blue-dark);
   --surface: var(--white);
-  --surface-muted: #f3f4f6;
+  --surface-muted: var(--blue-light);
 }
 
 @theme inline {
@@ -27,10 +38,13 @@
   --color-off-white: var(--off-white);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
+  --color-accent-light: var(--accent-light);
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-surface: var(--surface);
   --color-surface-muted: var(--surface-muted);
+  --color-blue-dark: var(--blue-dark);
+  --color-blue-light: var(--blue-light);
 
   --font-sans: var(--font-inter);
   --font-display: var(--font-barlow);
@@ -39,7 +53,7 @@
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
 
-  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.06);
+  --shadow-card: 0 1px 3px 0 rgb(10 37 64 / 0.06), 0 1px 2px -1px rgb(10 37 64 / 0.06);
 
   --spacing-section: 5rem;
   --spacing-section-sm: 3rem;
@@ -68,7 +82,21 @@ body {
   }
 }
 
+/* Alternating section backgrounds */
+.bg-section-white {
+  background-color: var(--surface);
+}
+
+.bg-section-light {
+  background-color: var(--surface-muted);
+}
+
+.bg-section-dark {
+  background-color: var(--charcoal);
+  color: var(--off-white);
+}
+
 /* Dialog backdrop styling */
 dialog::backdrop {
-  background-color: rgb(26 26 26 / 0.6);
+  background-color: rgb(10 37 64 / 0.6);
 }

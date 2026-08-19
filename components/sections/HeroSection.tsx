@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
+import { images } from "@/data/images";
 import { getSiteSettings } from "@/lib/content";
 import { FadeIn } from "@/components/motion/FadeIn";
 
-const heroImage =
-  "https://images.unsplash.com/photo-1756575527484-2839c593ed84?auto=format&fit=crop&w=2400&q=80";
+const heroImage = images.hero.src;
 
 export async function HeroSection() {
   const settings = await getSiteSettings();
@@ -14,7 +14,7 @@ export async function HeroSection() {
     <section className="relative overflow-hidden bg-charcoal text-off-white">
       <Image
         src={heroImage}
-        alt="Technician servicing vehicles on lifts inside the Namsot Auto Repairs workshop"
+        alt={images.hero.alt}
         fill
         priority
         className="object-cover object-[70%_center] opacity-55 sm:object-center"
@@ -26,7 +26,7 @@ export async function HeroSection() {
       <Container className="relative">
         <div className="flex min-h-[520px] flex-col justify-center py-16 md:min-h-[600px] md:py-24 lg:min-h-[680px]">
           <FadeIn>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-accent">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-accent-light">
               Professional Auto Repair
             </p>
           </FadeIn>

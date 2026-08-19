@@ -1,12 +1,23 @@
 export const businessInfo = {
-  name: "Namsot Auto Repairs",
+  name: "Namsot Auto repairs & tire works",
   phone: "(519) 242-0900",
   phoneHref: "tel:+15192420900",
   email: "sanjeev112233@icloud.com",
   emailHref: "mailto:sanjeev112233@icloud.com",
-  address: "London, Ontario, Canada",
-  addressLine: "Serving London and surrounding communities",
+  address: "632 Colby Dr Unit A, Waterloo, ON",
+  addressLine: "Serving Waterloo and surrounding communities",
   mapPlaceholder: "Map integration coming soon",
+} as const;
+
+export const brandDisplay = {
+  primary: "NAMSOT",
+  secondary: "Auto repairs & tire works",
+} as const;
+
+export const brandAssets = {
+  logo: "/logo.jpg",
+  logoWidth: 512,
+  logoHeight: 512,
 } as const;
 
 export const openingHours = [

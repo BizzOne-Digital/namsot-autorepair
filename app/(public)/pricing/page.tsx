@@ -8,14 +8,13 @@ import { PricingCard } from "@/components/pricing/PricingCard";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { BookingCTASection } from "@/components/sections/BookingCTASection";
 
+import { images } from "@/data/images";
+import { siteConfig } from "@/lib/metadata";
+
 export const metadata: Metadata = {
   title: "Pricing",
-  description:
-    "Transparent pricing for automotive services and maintenance packages at Namsot Auto Repairs.",
+  description: `Transparent pricing for automotive services and maintenance packages at ${siteConfig.name}.`,
 };
-
-const pricingHeroImage =
-  "https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?auto=format&fit=crop&w=2400&q=80";
 
 export default async function PricingPage() {
   const plans = await getPricingPlans();
@@ -25,12 +24,12 @@ export default async function PricingPage() {
       <PageHeader
         title="Service Pricing"
         description="Clear, upfront pricing for our most popular services. Final costs may vary based on vehicle type and condition."
-        imageUrl={pricingHeroImage}
-        imageAlt="Organised wall of hand tools in the repair workshop"
+        imageUrl={images.pricingHero.src}
+        imageAlt={images.pricingHero.alt}
         imageClassName="object-[60%_center]"
       />
 
-      <section className="section-spacing">
+      <section className="section-spacing bg-section-light">
         <Container>
           <FadeIn>
             <p className="mb-10 max-w-2xl text-sm text-muted">

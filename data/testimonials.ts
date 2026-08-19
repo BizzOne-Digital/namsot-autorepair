@@ -14,7 +14,7 @@ export const testimonials: Testimonial[] = [
     authorName: "David Thompson",
     rating: 5,
     review:
-      "Namsot Auto Repairs diagnosed an engine issue that two other shops couldn't figure out. Sanjeev explained everything clearly and the repair was done right the first time. Highly recommend.",
+      "Namsot Auto repairs & tire works diagnosed an engine issue that two other shops couldn't figure out. Sanjeev explained everything clearly and the repair was done right the first time. Highly recommend.",
     vehicle: "2018 Honda Civic",
   },
   {

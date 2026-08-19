@@ -13,17 +13,18 @@ export async function TestimonialsSection() {
   }
 
   return (
-    <section className="section-spacing bg-surface-muted">
+    <section className="section-spacing bg-section-dark">
       <Container>
         <FadeIn>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <SectionHeading
               title="What Our Customers Say"
               subtitle="Real feedback from drivers who trust us with their vehicles."
+              className="[&_h2]:text-off-white [&_p]:text-off-white/70"
             />
             <Link
               href="/testimonials"
-              className="text-sm font-medium text-accent hover:text-accent-hover transition-colors"
+              className="text-sm font-medium text-accent-light hover:text-off-white transition-colors"
             >
               Read all reviews →
             </Link>

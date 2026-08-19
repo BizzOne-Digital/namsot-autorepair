@@ -21,7 +21,7 @@ export async function ServicesSection({
   }
 
   return (
-    <section className="section-spacing bg-background">
+    <section className="section-spacing bg-section-light">
       <Container>
         <FadeIn>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

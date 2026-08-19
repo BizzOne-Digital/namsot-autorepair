@@ -49,7 +49,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
         />
       </PageHeader>
 
-      <section className="section-spacing">
+      <section className="section-spacing bg-section-light">
         <Container>
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
             <FadeIn>

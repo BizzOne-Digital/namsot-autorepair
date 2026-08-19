@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import { businessInfo } from "@/data/site";
 
-const siteName = "Namsot Auto Repairs";
+const siteName = businessInfo.name;
 const defaultDescription =
   "Premium automotive repair and maintenance services. Professional, trustworthy, and built for performance.";
 
@@ -25,6 +26,7 @@ export const baseMetadata: Metadata = {
     siteName,
     title: siteName,
     description: defaultDescription,
+    images: [{ url: "/logo.jpg", alt: siteName }],
   },
   robots: {
     index: true,

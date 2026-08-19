@@ -5,6 +5,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { getFaqs } from "@/lib/content";
 import { FAQAccordion } from "@/components/faq/FAQAccordion";
 import { FadeIn } from "@/components/motion/FadeIn";
+import { images } from "@/data/images";
 import { BookingCTASection } from "@/components/sections/BookingCTASection";
 
 export const metadata: Metadata = {
@@ -12,9 +13,6 @@ export const metadata: Metadata = {
   description:
     "Frequently asked questions about automotive repair and our services.",
 };
-
-const faqHeroImage =
-  "https://images.unsplash.com/photo-1730461748617-1ad7e6e56db2?auto=format&fit=crop&w=2400&q=80";
 
 export default async function FAQPage() {
   const items = await getFaqs();
@@ -24,12 +22,12 @@ export default async function FAQPage() {
       <PageHeader
         title="Frequently Asked Questions"
         description="Answers to common questions about our services, scheduling, and vehicle maintenance."
-        imageUrl={faqHeroImage}
-        imageAlt="Shelf of automotive repair manuals and technical references"
+        imageUrl={images.faqHero.src}
+        imageAlt={images.faqHero.alt}
         imageClassName="object-[60%_center]"
       />
 
-      <section className="section-spacing">
+      <section className="section-spacing bg-section-light">
         <Container size="md">
           {items.length === 0 ? (
             <EmptyState

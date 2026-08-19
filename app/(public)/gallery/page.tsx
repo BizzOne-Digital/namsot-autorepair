@@ -6,14 +6,13 @@ import { getGalleryItems } from "@/lib/content";
 import { GalleryGrid } from "@/components/gallery/GalleryGrid";
 import { FadeIn } from "@/components/motion/FadeIn";
 
+import { images } from "@/data/images";
+import { siteConfig } from "@/lib/metadata";
+
 export const metadata: Metadata = {
   title: "Gallery",
-  description:
-    "View our shop, services, and automotive repair work at Namsot Auto Repairs.",
+  description: `View our shop, services, and automotive repair work at ${siteConfig.name}.`,
 };
-
-const galleryHeroImage =
-  "https://images.unsplash.com/photo-1669437921238-76df6d82668a?auto=format&fit=crop&w=2400&q=80";
 
 export default async function GalleryPage() {
   const items = await getGalleryItems();
@@ -23,12 +22,12 @@ export default async function GalleryPage() {
       <PageHeader
         title="Gallery"
         description="A look inside our shop and the quality work we deliver every day."
-        imageUrl={galleryHeroImage}
-        imageAlt="Vehicle raised on a lift in a dimly lit service bay"
+        imageUrl={images.galleryHero.src}
+        imageAlt={images.galleryHero.alt}
         imageClassName="object-[65%_center]"
       />
 
-      <section className="section-spacing">
+      <section className="section-spacing bg-section-light">
         <Container>
           {items.length === 0 ? (
             <EmptyState

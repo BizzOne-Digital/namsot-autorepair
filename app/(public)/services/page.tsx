@@ -5,6 +5,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { getServices } from "@/lib/content";
 import { ServiceCard } from "@/components/services/ServiceCard";
 import { FadeIn } from "@/components/motion/FadeIn";
+import { images } from "@/data/images";
 import { BookingCTASection } from "@/components/sections/BookingCTASection";
 
 export const metadata: Metadata = {
@@ -13,9 +14,6 @@ export const metadata: Metadata = {
     "Complete automotive repair and maintenance services — oil changes, brakes, diagnostics, tires, and more.",
 };
 
-const servicesHeroImage =
-  "https://images.unsplash.com/photo-1771340012319-0b4fca008b54?auto=format&fit=crop&w=2400&q=80";
-
 export default async function ServicesPage() {
   const services = await getServices();
 
@@ -23,13 +21,13 @@ export default async function ServicesPage() {
     <>
       <PageHeader
         title="Our Services"
-        description="Professional automotive repair and maintenance for every need. Quality parts, skilled technicians, and honest recommendations."
-        imageUrl={servicesHeroImage}
-        imageAlt="Technician servicing a vehicle in a modern repair bay"
+        description="Professional repair and maintenance in our full-service workshop — from Porsche, BMW, and Mercedes to SUVs and everyday vehicles."
+        imageUrl={images.servicesHero.src}
+        imageAlt={images.servicesHero.alt}
         imageClassName="object-[65%_center]"
       />
 
-      <section className="section-spacing">
+      <section className="section-spacing bg-section-light">
         <Container>
           {services.length === 0 ? (
             <EmptyState
@@ -37,13 +35,20 @@ export default async function ServicesPage() {
               description="We are updating our service menu. Call the shop and we will talk you through what your vehicle needs."
             />
           ) : (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <>
+              <p className="mb-10 max-w-3xl text-base text-muted leading-relaxed">
+                Every service is performed in our workshop by certified technicians.
+                We work on premium European brands, sports cars, SUVs, and daily
+                drivers — the same professional care no matter what you drive.
+              </p>
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {services.map((service, index) => (
                 <FadeIn key={service._id} delay={index * 0.03}>
                   <ServiceCard service={service} />
                 </FadeIn>
               ))}
-            </div>
+              </div>
+            </>
           )}
         </Container>
       </section>

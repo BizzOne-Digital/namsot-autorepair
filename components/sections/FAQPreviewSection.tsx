@@ -13,7 +13,7 @@ export async function FAQPreviewSection() {
   }
 
   return (
-    <section className="section-spacing bg-surface-muted">
+    <section className="section-spacing bg-section-light">
       <Container size="md">
         <FadeIn>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

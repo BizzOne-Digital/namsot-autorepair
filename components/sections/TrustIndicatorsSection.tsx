@@ -4,7 +4,7 @@ import { FadeIn } from "@/components/motion/FadeIn";
 
 export function TrustIndicatorsSection() {
   return (
-    <section className="border-b border-border bg-surface">
+    <section className="border-b border-border bg-section-white">
       <Container>
         <div className="grid grid-cols-2 gap-6 py-8 md:grid-cols-4 md:py-10">
           {trustIndicators.map((item, index) => (

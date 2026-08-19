@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/utils/cn";
 import { Container } from "@/components/ui/Container";
 import { navLinks } from "@/data/site";
+import { LogoLink } from "./Logo";
 import { MobileMenu } from "./MobileMenu";
 
 function CartIcon() {
@@ -33,14 +34,7 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-border bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/80">
       <Container>
         <div className="flex h-16 items-center justify-between gap-4 lg:h-[4.5rem]">
-          <Link href="/" className="group flex shrink-0 flex-col">
-            <span className="font-display text-base font-bold uppercase tracking-[0.12em] text-foreground transition-colors group-hover:text-accent sm:text-lg">
-              NAMSOT
-            </span>
-            <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted sm:text-xs">
-              Auto Repairs
-            </span>
-          </Link>
+          <LogoLink priority />
 
           <nav
             className="hidden items-center gap-1 lg:flex"

@@ -9,12 +9,13 @@ export async function ContactPreviewSection() {
   const settings = await getSiteSettings();
 
   return (
-    <section className="section-spacing bg-surface">
+    <section className="section-spacing bg-section-dark">
       <Container>
         <FadeIn>
           <SectionHeading
             title="Visit or Contact Us"
             subtitle="We're here to help with your automotive needs. Reach out or stop by during business hours."
+            className="[&_h2]:text-off-white [&_p]:text-off-white/70"
           />
         </FadeIn>
 

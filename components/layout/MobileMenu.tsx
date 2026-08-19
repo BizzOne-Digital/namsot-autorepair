@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/utils/cn";
 import { navLinks } from "@/data/site";
+import { LogoLink } from "./Logo";
 
 function CartIcon() {
   return (
@@ -94,6 +95,7 @@ export function MobileMenu() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex flex-col px-4 py-4">
+              <LogoLink className="mb-4 px-3" />
               {navLinks.map((link) => (
                 <Link
                   key={link.href}

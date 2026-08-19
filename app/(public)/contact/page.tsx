@@ -6,14 +6,13 @@ import { ContactForm } from "@/components/forms/ContactForm";
 import { getSiteSettings, mailtoHref, telHref } from "@/lib/content";
 import { FadeIn } from "@/components/motion/FadeIn";
 
+import { images } from "@/data/images";
+import { siteConfig } from "@/lib/metadata";
+
 export const metadata: Metadata = {
   title: "Contact",
-  description:
-    "Contact Namsot Auto Repairs — call, email, or send us a message.",
+  description: `Contact ${siteConfig.name} — call, email, or send us a message.`,
 };
-
-const contactHeroImage =
-  "https://images.unsplash.com/photo-1565580743984-49bf8ef4daa6?auto=format&fit=crop&w=2400&q=80";
 
 export default async function ContactPage() {
   const settings = await getSiteSettings();
@@ -25,12 +24,12 @@ export default async function ContactPage() {
       <PageHeader
         title="Contact Us"
         description="We're here to help. Reach out by phone, email, or send us a message below."
-        imageUrl={contactHeroImage}
-        imageAlt="Street view of an automotive service shop front"
+        imageUrl={images.contactHero.src}
+        imageAlt={images.contactHero.alt}
         imageClassName="object-[65%_center]"
       />
 
-      <section className="section-spacing">
+      <section className="section-spacing bg-section-light">
         <Container>
           <div className="grid gap-10 lg:grid-cols-3">
             <div className="space-y-6">

@@ -13,7 +13,7 @@ export async function TeamPreviewSection() {
   }
 
   return (
-    <section className="section-spacing bg-background">
+    <section className="section-spacing bg-section-white">
       <Container>
         <FadeIn>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

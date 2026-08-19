@@ -1,3 +1,5 @@
+import { images } from "./images";
+
 export interface Service {
   slug: string;
   name: string;
@@ -9,9 +11,6 @@ export interface Service {
   imageUrl: string;
   imageAlt: string;
 }
-
-const unsplash = (id: string) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1200&q=80`;
 
 export const services: Service[] = [
   {
@@ -29,8 +28,8 @@ export const services: Service[] = [
     ],
     duration: "30–45 min",
     priceFrom: 49,
-    imageUrl: unsplash("photo-1771340742493-52fbd5476ccb"),
-    imageAlt: "Technician pouring fresh engine oil during a service",
+    imageUrl: images.serviceOilChange.src,
+    imageAlt: images.serviceOilChange.alt,
   },
   {
     slug: "tire-change",
@@ -47,8 +46,8 @@ export const services: Service[] = [
     ],
     duration: "45–60 min",
     priceFrom: 35,
-    imageUrl: unsplash("photo-1645445522156-9ac06bc7a767"),
-    imageAlt: "Technician fitting a tire on a vehicle in the workshop",
+    imageUrl: images.serviceTireChange.src,
+    imageAlt: images.serviceTireChange.alt,
   },
   {
     slug: "brake-service",
@@ -65,8 +64,8 @@ export const services: Service[] = [
     ],
     duration: "1–2 hours",
     priceFrom: 149,
-    imageUrl: unsplash("photo-1760317890314-e964ffd7e6a6"),
-    imageAlt: "Brake rotor and caliper exposed during a brake service",
+    imageUrl: images.serviceBrake.src,
+    imageAlt: images.serviceBrake.alt,
   },
   {
     slug: "engine-diagnostics",
@@ -83,8 +82,8 @@ export const services: Service[] = [
     ],
     duration: "45–90 min",
     priceFrom: 89,
-    imageUrl: unsplash("photo-1632733711679-529326f6db12"),
-    imageAlt: "Technician diagnosing a vehicle's electrical system",
+    imageUrl: images.serviceDiagnostics.src,
+    imageAlt: images.serviceDiagnostics.alt,
   },
   {
     slug: "battery-service",
@@ -101,8 +100,8 @@ export const services: Service[] = [
     ],
     duration: "30–45 min",
     priceFrom: 39,
-    imageUrl: unsplash("photo-1765211003026-f7666ea3a948"),
-    imageAlt: "Car battery and terminals in an engine bay",
+    imageUrl: images.serviceBattery.src,
+    imageAlt: images.serviceBattery.alt,
   },
   {
     slug: "wheel-alignment",
@@ -119,8 +118,8 @@ export const services: Service[] = [
     ],
     duration: "45–60 min",
     priceFrom: 99,
-    imageUrl: unsplash("photo-1786489623872-2ebdfe51297c"),
-    imageAlt: "Technician working in a wheel and tire service bay",
+    imageUrl: images.serviceAlignment.src,
+    imageAlt: images.serviceAlignment.alt,
   },
   {
     slug: "suspension-repair",
@@ -137,8 +136,8 @@ export const services: Service[] = [
     ],
     duration: "2–4 hours",
     priceFrom: 199,
-    imageUrl: unsplash("photo-1656232976683-7b688560e427"),
-    imageAlt: "Vehicle hub, brake and suspension assembly seen from below",
+    imageUrl: images.serviceSuspension.src,
+    imageAlt: images.serviceSuspension.alt,
   },
   {
     slug: "air-conditioning-service",
@@ -155,8 +154,8 @@ export const services: Service[] = [
     ],
     duration: "1–2 hours",
     priceFrom: 129,
-    imageUrl: unsplash("photo-1773696756753-af4dcfd66eda"),
-    imageAlt: "Air conditioning vents on a modern vehicle dashboard",
+    imageUrl: images.serviceAc.src,
+    imageAlt: images.serviceAc.alt,
   },
   {
     slug: "general-auto-repair",
@@ -173,8 +172,8 @@ export const services: Service[] = [
     ],
     duration: "Varies",
     priceFrom: 79,
-    imageUrl: unsplash("photo-1786490001670-b2f1009030e2"),
-    imageAlt: "Technician repairing a vehicle raised on stands in the workshop",
+    imageUrl: images.serviceGeneralRepair.src,
+    imageAlt: images.serviceGeneralRepair.alt,
   },
   {
     slug: "preventive-maintenance",
@@ -191,8 +190,8 @@ export const services: Service[] = [
     ],
     duration: "1–3 hours",
     priceFrom: 119,
-    imageUrl: unsplash("photo-1771340012378-3c86cb649193"),
-    imageAlt: "Technician checking fluid levels during a scheduled inspection",
+    imageUrl: images.servicePreventive.src,
+    imageAlt: images.servicePreventive.alt,
   },
 ];
 

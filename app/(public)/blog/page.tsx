@@ -6,14 +6,13 @@ import { getBlogPosts } from "@/lib/content";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { FadeIn } from "@/components/motion/FadeIn";
 
+import { images } from "@/data/images";
+import { siteConfig } from "@/lib/metadata";
+
 export const metadata: Metadata = {
   title: "Blog",
-  description:
-    "Automotive tips, maintenance guides, and industry insights from Namsot Auto Repairs.",
+  description: `Automotive tips, maintenance guides, and industry insights from ${siteConfig.name}.`,
 };
-
-const blogHeroImage =
-  "https://images.unsplash.com/photo-1676018366904-c083ed678e60?auto=format&fit=crop&w=2400&q=80";
 
 export default async function BlogPage() {
   const posts = await getBlogPosts();
@@ -23,12 +22,12 @@ export default async function BlogPage() {
       <PageHeader
         title="Blog & News"
         description="Expert tips and guides to help you maintain your vehicle and stay safe on the road."
-        imageUrl={blogHeroImage}
-        imageAlt="Technician working at a bench inside the repair workshop"
+        imageUrl={images.blogHero.src}
+        imageAlt={images.blogHero.alt}
         imageClassName="object-[60%_center]"
       />
 
-      <section className="section-spacing">
+      <section className="section-spacing bg-section-light">
         <Container>
           {posts.length === 0 ? (
             <EmptyState

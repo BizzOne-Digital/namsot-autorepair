@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/Badge";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { getProducts } from "@/lib/content";
+import { images } from "@/data/images";
 import { FadeIn } from "@/components/motion/FadeIn";
 
 export const metadata: Metadata = {
@@ -14,9 +15,6 @@ export const metadata: Metadata = {
   description:
     "Quality automotive parts and fluids. Full e-commerce shop coming soon.",
 };
-
-const shopHeroImage =
-  "https://images.unsplash.com/photo-1590227763209-821c686b932f?auto=format&fit=crop&w=2400&q=80";
 
 export default async function ShopPage() {
   const products = await getProducts();
@@ -26,12 +24,12 @@ export default async function ShopPage() {
       <PageHeader
         title="Shop"
         description="Quality parts and fluids for your vehicle. Online ordering and checkout coming in a future update."
-        imageUrl={shopHeroImage}
-        imageAlt="Shelves of motor oil and automotive fluids in a parts store"
+        imageUrl={images.shopHero.src}
+        imageAlt={images.shopHero.alt}
         imageClassName="object-[60%_center]"
       />
 
-      <section className="section-spacing">
+      <section className="section-spacing bg-section-light">
         <Container>
           <FadeIn>
             <Card className="mb-10 border-accent/20 bg-accent/5">

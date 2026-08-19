@@ -3,7 +3,7 @@ import { Loading } from "@/components/ui/Loading";
 
 export default function LoadingPage() {
   return (
-    <section className="section-spacing">
+    <section className="section-spacing bg-section-light">
       <Container>
         <Loading size="lg" className="py-20" />
       </Container>
