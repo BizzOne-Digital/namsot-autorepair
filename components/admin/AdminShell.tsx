@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState, type ReactNode } from "react";
 import { toast } from "sonner";
 import { adminRequest } from "@/lib/admin/client";
+import { adminNavigation } from "@/lib/admin/navigation";
 import { Logo } from "@/components/layout/Logo";
 import { cn } from "@/utils/cn";
 
