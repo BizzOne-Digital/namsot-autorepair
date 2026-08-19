@@ -2,10 +2,12 @@ import {
   HeroSection,
   TrustIndicatorsSection,
   ServicesSection,
+  FacilityShowcaseSection,
   WhyChooseUsSection,
   FeaturedProductsSection,
   BookingCTASection,
   AboutPreviewSection,
+  GalleryPreviewSection,
   TeamPreviewSection,
   TestimonialsSection,
   PromoSection,
@@ -20,10 +22,12 @@ export default function HomePage() {
       <HeroSection />
       <TrustIndicatorsSection />
       <ServicesSection />
+      <FacilityShowcaseSection />
       <WhyChooseUsSection />
       <FeaturedProductsSection />
       <BookingCTASection />
       <AboutPreviewSection />
+      <GalleryPreviewSection />
       <TeamPreviewSection />
       <TestimonialsSection />
       <PromoSection />

@@ -1,10 +1,12 @@
 export { HeroSection } from "./HeroSection";
 export { TrustIndicatorsSection } from "./TrustIndicatorsSection";
 export { ServicesSection } from "./ServicesSection";
+export { FacilityShowcaseSection } from "./FacilityShowcaseSection";
 export { WhyChooseUsSection } from "./WhyChooseUsSection";
 export { FeaturedProductsSection } from "./FeaturedProductsSection";
 export { BookingCTASection } from "./BookingCTASection";
 export { AboutPreviewSection } from "./AboutPreviewSection";
+export { GalleryPreviewSection } from "./GalleryPreviewSection";
 export { TeamPreviewSection } from "./TeamPreviewSection";
 export { TestimonialsSection } from "./TestimonialsSection";
 export { PromoSection } from "./PromoSection";

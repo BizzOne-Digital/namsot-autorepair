@@ -17,7 +17,7 @@ export async function HeroSection() {
         alt={images.hero.alt}
         fill
         priority
-        className="object-cover object-[70%_center] opacity-55 sm:object-center"
+        className="object-cover object-[center_35%] opacity-55 sm:object-[center_30%]"
         sizes="100vw"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/85 to-charcoal/50" />

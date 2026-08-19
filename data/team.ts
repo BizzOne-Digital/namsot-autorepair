@@ -21,12 +21,12 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: "2",
-    name: "Marcus Chen",
+    name: "Sikandar",
     role: "Senior Automotive Technician",
     bio:
-      "Marcus brings certified expertise in brake systems, suspension, and alignment. His attention to detail ensures every vehicle leaves the shop performing at its best.",
-    imageUrl: images.teamSenior.src,
-    imageAlt: images.teamSenior.alt,
+      "Sikandar brings certified expertise in engine repair, diagnostics, and under-the-hood service on trucks, SUVs, and premium vehicles. His attention to detail ensures every vehicle leaves performing at its best.",
+    imageUrl: images.teamSikandar.src,
+    imageAlt: images.teamSikandar.alt,
   },
   {
     id: "3",

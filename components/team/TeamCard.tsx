@@ -9,6 +9,8 @@ interface TeamCardProps {
 }
 
 export function TeamCard({ member, className }: TeamCardProps) {
+  const isPortraitTechnician = member.imageUrl.includes("client-sikandar");
+
   return (
     <Card padding="none" className={cn("overflow-hidden", className)}>
       <div className="relative aspect-[4/5] bg-charcoal">
@@ -16,7 +18,10 @@ export function TeamCard({ member, className }: TeamCardProps) {
           src={member.imageUrl}
           alt={member.imageAlt}
           fill
-          className="object-cover"
+          className={cn(
+            "object-cover",
+            isPortraitTechnician ? "object-[22%_42%]" : "object-top",
+          )}
           sizes="(max-width: 768px) 50vw, 25vw"
         />
       </div>

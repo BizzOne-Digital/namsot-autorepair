@@ -26,6 +26,12 @@ import {
   defaultTeamMembers,
   defaultTestimonials,
 } from "./defaults";
+import {
+  mergeBlogImages,
+  mergeGalleryImages,
+  mergeServiceImages,
+  mergeTeamImages,
+} from "./bundled-media";
 import type {
   ContentBlogPost,
   ContentCategory,
@@ -67,21 +73,23 @@ async function read<T>(
 }
 
 export const getServices = cache(async (): Promise<ContentService[]> =>
-  read(
-    "services",
-    async () => {
-      const documents = await Service.find({ isActive: true })
-        .sort({ order: 1, name: 1 })
-        .lean();
-      return toPlainArray<ContentService>(documents);
-    },
-    () => defaultServices,
+  mergeServiceImages(
+    await read(
+      "services",
+      async () => {
+        const documents = await Service.find({ isActive: true })
+          .sort({ order: 1, name: 1 })
+          .lean();
+        return toPlainArray<ContentService>(documents);
+      },
+      () => defaultServices,
+    ),
   ),
 );
 
 export const getServiceBySlug = cache(
-  async (slug: string): Promise<ContentService | null> =>
-    read(
+  async (slug: string): Promise<ContentService | null> => {
+    const service = await read(
       `service "${slug}"`,
       async () => {
         const document = await Service.findOne({
@@ -91,7 +99,14 @@ export const getServiceBySlug = cache(
         return document ? toPlainObject<ContentService>(document) : null;
       },
       () => defaultServices.find((service) => service.slug === slug) ?? null,
-    ),
+    );
+
+    if (!service) {
+      return null;
+    }
+
+    return mergeServiceImages([service])[0] ?? null;
+  },
 );
 
 export const getCategories = cache(async (): Promise<ContentCategory[]> =>
@@ -140,15 +155,17 @@ export const getFeaturedProducts = cache(
 );
 
 export const getTeamMembers = cache(async (): Promise<ContentTeamMember[]> =>
-  read(
-    "team members",
-    async () => {
-      const documents = await TeamMember.find({ isPublished: true })
-        .sort({ order: 1, name: 1 })
-        .lean();
-      return toPlainArray<ContentTeamMember>(documents);
-    },
-    () => defaultTeamMembers,
+  mergeTeamImages(
+    await read(
+      "team members",
+      async () => {
+        const documents = await TeamMember.find({ isPublished: true })
+          .sort({ order: 1, name: 1 })
+          .lean();
+        return toPlainArray<ContentTeamMember>(documents);
+      },
+      () => defaultTeamMembers,
+    ),
   ),
 );
 
@@ -179,15 +196,17 @@ export const getFaqs = cache(async (): Promise<ContentFAQ[]> =>
 );
 
 export const getGalleryItems = cache(async (): Promise<ContentGalleryItem[]> =>
-  read(
-    "gallery items",
-    async () => {
-      const documents = await GalleryItem.find({ isPublished: true })
-        .sort({ order: 1, createdAt: -1 })
-        .lean();
-      return toPlainArray<ContentGalleryItem>(documents);
-    },
-    () => defaultGalleryItems,
+  mergeGalleryImages(
+    await read(
+      "gallery items",
+      async () => {
+        const documents = await GalleryItem.find({ isPublished: true })
+          .sort({ order: 1, createdAt: -1 })
+          .lean();
+        return toPlainArray<ContentGalleryItem>(documents);
+      },
+      () => defaultGalleryItems,
+    ),
   ),
 );
 
@@ -205,21 +224,23 @@ export const getPricingPlans = cache(async (): Promise<ContentPricingPlan[]> =>
 );
 
 export const getBlogPosts = cache(async (): Promise<ContentBlogPost[]> =>
-  read(
-    "blog posts",
-    async () => {
-      const documents = await BlogPost.find({ isPublished: true })
-        .sort({ publishedAt: -1, createdAt: -1 })
-        .lean();
-      return toPlainArray<ContentBlogPost>(documents);
-    },
-    () => defaultBlogPosts,
+  mergeBlogImages(
+    await read(
+      "blog posts",
+      async () => {
+        const documents = await BlogPost.find({ isPublished: true })
+          .sort({ publishedAt: -1, createdAt: -1 })
+          .lean();
+        return toPlainArray<ContentBlogPost>(documents);
+      },
+      () => defaultBlogPosts,
+    ),
   ),
 );
 
 export const getBlogPostBySlug = cache(
-  async (slug: string): Promise<ContentBlogPost | null> =>
-    read(
+  async (slug: string): Promise<ContentBlogPost | null> => {
+    const post = await read(
       `blog post "${slug}"`,
       async () => {
         const document = await BlogPost.findOne({
@@ -229,7 +250,14 @@ export const getBlogPostBySlug = cache(
         return document ? toPlainObject<ContentBlogPost>(document) : null;
       },
       () => defaultBlogPosts.find((post) => post.slug === slug) ?? null,
-    ),
+    );
+
+    if (!post) {
+      return null;
+    }
+
+    return mergeBlogImages([post])[0] ?? null;
+  },
 );
 
 export const getSiteSettings = cache(async (): Promise<ContentSiteSettings> =>

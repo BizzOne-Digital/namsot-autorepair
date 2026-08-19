@@ -12,13 +12,13 @@ export function AboutPreviewSection() {
       <Container>
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <FadeIn direction="right">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-charcoal">
+            <div className="relative mx-auto aspect-[4/5] max-w-sm overflow-hidden rounded-lg bg-charcoal sm:max-w-md lg:mx-0 lg:max-w-none">
               <Image
                 src={images.aboutPreview.src}
                 alt={images.aboutPreview.alt}
                 fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover object-[22%_42%]"
+                sizes="(max-width: 1024px) 90vw, 50vw"
               />
             </div>
           </FadeIn>

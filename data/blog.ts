@@ -39,7 +39,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Brake problems rarely appear without warning. Recognize these signs early to stay safe and avoid more expensive repairs down the road.",
     publishedAt: "2026-02-15",
-    author: "Marcus Chen",
+    author: "Sikandar",
     category: "Safety",
     readTime: "4 min read",
     imageUrl: images.blogBrakes.src,

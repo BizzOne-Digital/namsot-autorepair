@@ -1,9 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { getSiteSettings, mailtoHref, mapsHref, telHref } from "@/lib/content";
 import { Card } from "@/components/ui/Card";
 import { FadeIn } from "@/components/motion/FadeIn";
+import { images } from "@/data/images";
 
 export async function ContactPreviewSection() {
   const settings = await getSiteSettings();
@@ -17,6 +19,27 @@ export async function ContactPreviewSection() {
             subtitle="We're here to help with your automotive needs. Reach out or stop by during business hours."
             className="[&_h2]:text-off-white [&_p]:text-off-white/70"
           />
+        </FadeIn>
+
+        <FadeIn delay={0.05}>
+          <div className="relative mt-10 aspect-[21/9] overflow-hidden rounded-lg bg-charcoal sm:aspect-[16/7]">
+            <Image
+              src={images.contactHero.src}
+              alt={images.contactHero.alt}
+              fill
+              className="object-cover object-[65%_center]"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 p-6 sm:p-8">
+              <p className="text-sm font-semibold uppercase tracking-wider text-off-white/80">
+                Our location
+              </p>
+              <p className="mt-2 font-display text-xl font-bold text-off-white sm:text-2xl">
+                {settings.address}
+              </p>
+            </div>
+          </div>
         </FadeIn>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-3">
