@@ -1,5 +1,6 @@
 export { HeroSection } from "./HeroSection";
 export { TrustIndicatorsSection } from "./TrustIndicatorsSection";
+export { StorefrontPosterSection } from "./StorefrontPosterSection";
 export { ServicesSection } from "./ServicesSection";
 export { FacilityShowcaseSection } from "./FacilityShowcaseSection";
 export { WhyChooseUsSection } from "./WhyChooseUsSection";

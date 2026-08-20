@@ -6,6 +6,8 @@
 export type SiteImage = {
   src: string;
   alt: string;
+  width?: number;
+  height?: number;
 };
 
 /** Client-provided photography */
@@ -30,12 +32,19 @@ const client = {
     src: "/images/client-sikandar-technician.png",
     alt: "Sikandar, senior technician, performing engine service on a GMC truck",
   },
+  storefrontPoster: {
+    src: "/images/client-storefront-poster.jpg",
+    alt: "Namsot Auto Repairs & Tire Works storefront poster at 632 Colby Dr Unit A, Waterloo",
+    width: 1024,
+    height: 576,
+  },
 } as const satisfies Record<string, SiteImage>;
 
 export const images = {
   // Home & sections
   hero: client.heroShopInterior,
   aboutPreview: client.sikandarTechnician,
+  storefrontPoster: client.storefrontPoster,
 
   // Page heroes
   aboutHero: client.workshopWide,

@@ -1,6 +1,7 @@
 import {
   HeroSection,
   TrustIndicatorsSection,
+  StorefrontPosterSection,
   ServicesSection,
   FacilityShowcaseSection,
   WhyChooseUsSection,
@@ -21,6 +22,7 @@ export default function HomePage() {
     <>
       <HeroSection />
       <TrustIndicatorsSection />
+      <StorefrontPosterSection />
       <ServicesSection />
       <FacilityShowcaseSection />
       <WhyChooseUsSection />
