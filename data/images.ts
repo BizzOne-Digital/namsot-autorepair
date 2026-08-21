@@ -38,6 +38,30 @@ const client = {
     width: 1024,
     height: 576,
   },
+  promoBannerCars: {
+    src: "/images/client-promo-banner-cars.jpg",
+    alt: "Namsot Auto Repairs & Tire Works — call 519-242-0900 for professional auto repair and tire service",
+    width: 1024,
+    height: 341,
+  },
+  posterFullServices: {
+    src: "/images/client-poster-full-services.jpg",
+    alt: "Namsot services poster — oil change, tires, brakes, A/C, suspension, and transmission at 632 Colby Dr, Waterloo",
+    width: 682,
+    height: 1024,
+  },
+  posterOrangeSplit: {
+    src: "/images/client-poster-orange-split.jpg",
+    alt: "Namsot Auto Repairs & Tire Works services and contact poster",
+    width: 1024,
+    height: 682,
+  },
+  posterTireBrake: {
+    src: "/images/client-poster-tire-brake.jpg",
+    alt: "Namsot brake repair and tire service poster",
+    width: 682,
+    height: 1024,
+  },
 } as const satisfies Record<string, SiteImage>;
 
 export const images = {
@@ -45,6 +69,10 @@ export const images = {
   hero: client.heroShopInterior,
   aboutPreview: client.sikandarTechnician,
   storefrontPoster: client.storefrontPoster,
+  promoBannerCars: client.promoBannerCars,
+  posterFullServices: client.posterFullServices,
+  posterOrangeSplit: client.posterOrangeSplit,
+  posterTireBrake: client.posterTireBrake,
 
   // Page heroes
   aboutHero: client.workshopWide,

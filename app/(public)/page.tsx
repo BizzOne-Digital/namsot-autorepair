@@ -1,5 +1,6 @@
 import {
   HeroSection,
+  PromoBannerSection,
   TrustIndicatorsSection,
   StorefrontPosterSection,
   ServicesSection,
@@ -21,6 +22,7 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
+      <PromoBannerSection />
       <TrustIndicatorsSection />
       <StorefrontPosterSection />
       <ServicesSection />

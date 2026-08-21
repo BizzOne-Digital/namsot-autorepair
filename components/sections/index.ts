@@ -1,4 +1,5 @@
 export { HeroSection } from "./HeroSection";
+export { PromoBannerSection } from "./PromoBannerSection";
 export { TrustIndicatorsSection } from "./TrustIndicatorsSection";
 export { StorefrontPosterSection } from "./StorefrontPosterSection";
 export { ServicesSection } from "./ServicesSection";
