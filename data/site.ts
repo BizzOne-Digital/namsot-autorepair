@@ -5,7 +5,7 @@ export const businessInfo = {
   email: "Namsotautorepairstireworks@gmail.com",
   emailHref: "mailto:Namsotautorepairstireworks@gmail.com",
   address: "632 Colby Dr Unit A, Waterloo, ON",
-  addressLine: "Serving Waterloo and surrounding communities",
+  addressLine: "Serving Kitchener, Waterloo, and Cambridge",
   mapPlaceholder: "Map integration coming soon",
 } as const;
 

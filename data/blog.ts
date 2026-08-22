@@ -20,7 +20,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Understanding oil change intervals helps protect your engine and avoid unnecessary service. Learn what factors affect how often you should change your oil.",
     publishedAt: "2026-03-01",
-    author: "Sanjeev Kumar",
+    author: "Sanjeev",
     category: "Maintenance",
     readTime: "5 min read",
     imageUrl: images.blogOil.src,

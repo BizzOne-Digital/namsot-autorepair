@@ -280,6 +280,7 @@ export const getSiteSettings = cache(async (): Promise<ContentSiteSettings> =>
         ...stripEmpty(settings),
         contactEmail: defaultSiteSettings.contactEmail,
         address: defaultSiteSettings.address,
+        addressLine: defaultSiteSettings.addressLine,
         socialLinks: {
           ...defaultSiteSettings.socialLinks,
           ...(settings.socialLinks ?? {}),

@@ -12,7 +12,7 @@ export interface TeamMember {
 export const teamMembers: TeamMember[] = [
   {
     id: "1",
-    name: "Sanjeev Kumar",
+    name: "Sanjeev",
     role: "Owner & Lead Technician",
     bio:
       "With over 15 years in automotive repair, Sanjeev founded Namsot Auto repairs & tire works with a commitment to honest service and quality workmanship. He specializes in engine diagnostics and complex drivability issues.",
